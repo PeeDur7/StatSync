@@ -1,0 +1,2776 @@
+.navbar {
+  background: transparent;
+}
+
+.navbar nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10px 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* Left side items container */
+.navbar nav > a,
+.navbar .NFLNav,
+.navbar .NBANav {
+  margin-right: 15px;
+}
+
+/* Right side user nav */
+.UserNav {
+  margin-left: auto;
+  margin-right: -15px;
+}
+
+.navbar img {
+  width: 40px;
+  height: 40px;
+  filter: brightness(0) invert(1);
+}
+
+.navbar a,
+.navbar button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 40px;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-weight: 500;
+  color: white;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all 0.2s ease;
+}
+
+.navbar a:hover,
+.navbar button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Active state for dropdown buttons */
+.navbar button.active {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Make dropdowns appear in column layout */
+.NFLNav,
+.NBANav,
+.UserNav {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Dropdown Lists Styling */
+.NFLDropList,
+.NBADropList,
+.UserDropList {
+  width: 100px; /* Match parent button width */
+  background: rgba(13, 27, 42, 0.95);
+  border-radius: 8px;
+  padding: 8px 0;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  margin-top: 8px;
+  animation: slideDown 0.2s ease;
+}
+
+@keyframes slideDown {
+  from {
+      opacity: 0;
+      max-height: 0;
+      padding: 0;
+  }
+  to {
+      opacity: 1;
+      max-height: 200px;
+      padding: 8px 0;
+  }
+}
+
+.NFLDropList a,
+.NBADropList a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  padding: 0;
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  transition: background-color 0.2s ease;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.NFLDropList a:hover,
+.NBADropList a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* User dropdown specific styling */
+.UserDropList {
+  width: 100px; /* Match user icon button width */
+}
+
+.UserDropList button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100% !important;
+  height: 40px !important;
+  padding: 0 !important;
+  text-align: center;
+  font-size: 16px !important;
+  border-radius: 6px;
+  margin: 0 !important;
+  box-sizing: border-box;
+}
+
+.UserDropList button[style*="red"] {
+  background-color: #dc2626 !important;
+  color: white !important;
+}
+
+.UserDropList button[style*="red"]:hover {
+  background-color: #b91c1c !important;
+}
+
+/* User button specific - make it square to match icon size */
+.UserNav > button {
+  width: 100px !important;
+}
+
+.UserNav .UserDropList {
+  width: 100px; /* Make logout button wider than the icon */
+}
+
+/* Position dropdown menus */
+.NFLNav,
+.NBANav,
+.UserNav {
+  position: relative;
+}
+
+.NFLDropList,
+.NBADropList,
+.UserDropList {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: rgba(20, 20, 20, 0.37); /* Same/lighter color as hover */
+  border-radius: 5px;
+  margin-top: 5px;
+  z-index: 1000;
+}
+
+.UserDropList {
+  right: 0;
+  left: auto; /* Override left positioning for user dropdown */
+}
+
+/* Login Page Styles */
+.loginPageContainer {
+  min-height: 100vh;
+  background: #475569;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.loginPageContainer h1 {
+  font-size: 42px !important;
+  font-weight: 800 !important;
+  color: white !important;
+  margin-bottom: 8px !important;
+  text-align: center;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.loginPageContainer > h4 {
+  font-size: 18px !important;
+  color: #c3c4c6 !important;
+  margin-top: 0 !important;
+  margin-bottom: 30px !important;
+  text-align: center;
+  font-style: italic !important;
+  font-weight: normal !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.loginInputTextsContainer {
+  width: 100%;
+  max-width: 500px;
+  background: linear-gradient(135deg, rgba(13, 27, 42, 0.9), rgba(27, 38, 59, 0.9));
+  border-radius: 24px;
+  padding: 50px 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.loginInputTexts {
+  width: 100%;
+}
+
+.loginInputTexts form {
+  display: flex;
+  flex-direction: column;
+}
+
+.loginInputTexts h4 {
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: white !important;
+  margin-bottom: 8px !important;
+  margin-top: 0 !important;
+}
+
+.loginInputTexts input[type="text"],
+.loginInputTexts input[type="email"],
+.loginInputTexts input[type="password"] {
+  width: 100% !important;
+  padding: 14px 16px !important;
+  font-size: 15px !important;
+  border: 2px solid rgba(226, 232, 240, 0.2) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: white !important;
+  border-radius: 10px !important;
+  outline: none !important;
+  transition: all 0.2s ease !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+  box-sizing: border-box !important;
+  margin-bottom: 0 !important;
+}
+
+.loginInputTexts input:focus {
+  border-color: rgba(14, 202, 80, 0.6) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 0 0 3px rgba(14, 202, 80, 0.1) !important;
+}
+
+.loginInputTexts input::placeholder {
+  color: #8b929a !important;
+  text-align: left !important;
+}
+
+.passwordText {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.passwordText h4 {
+  color: white !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  margin-bottom: 8px !important;
+  margin-top: 0 !important;
+}
+
+.showPasswordLogin {
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.showPasswordLogin input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  margin: 0;
+  accent-color: rgb(14, 202, 80);
+}
+
+.showPasswordLogin h4 {
+  font-size: 14px !important;
+  color: #c3c4c6 !important;
+  margin: 0 !important;
+  padding-left: 8px !important;
+  font-weight: bold !important;
+}
+
+.showPasswordLogin a {
+  font-size: 14px !important;
+  color: rgb(0, 123, 255) !important;
+  text-decoration: none !important;
+  margin-left: auto !important;
+  font-weight: 500 !important;
+  transition: color 0.2s ease !important;
+  padding-left: 5px !important;
+  margin-bottom: 0 !important;
+  margin-top: 0 !important;
+}
+
+.showPasswordLogin a:hover {
+  color: rgb(26, 50, 202) !important;
+  text-decoration: underline !important;
+}
+
+#loginButton {
+  width: 100%;
+  background-color: rgb(14, 202, 80) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 12px !important;
+  padding: 16px !important;
+  font-size: 17px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  margin-top: 24px !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 12px rgba(14, 202, 80, 0.3) !important;
+}
+
+#loginButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(14, 202, 80, 0.4) !important;
+  background-color: rgb(25, 177, 78) !important;
+}
+
+.createAccountOnLoginPage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(226, 232, 240, 0.2);
+}
+
+.createAccountOnLoginPage h4 {
+  font-size: 15px !important;
+  color: #c3c4c6 !important;
+  margin: 0 !important;
+  font-weight: normal !important;
+}
+
+.createAccountOnLoginPage a {
+  font-size: 15px !important;
+  color: rgb(0, 123, 255) !important;
+  text-decoration: none !important;
+  font-weight: 600 !important;
+  transition: color 0.2s ease !important;
+}
+
+.createAccountOnLoginPage a:hover {
+  color: rgb(26, 50, 202) !important;
+  text-decoration: underline !important;
+  cursor: pointer;
+}
+
+/* Error message styling */
+.loginInputTexts p {
+  background: rgba(254, 202, 202, 0.15) !important;
+  border: 1px solid rgba(252, 165, 165, 0.3) !important;
+  border-radius: 8px !important;
+  padding: 12px 16px !important;
+  margin: 16px 0 0 0 !important;
+  font-size: 14px !important;
+  color: #fca5a5 !important;
+  font-weight: bold !important;
+}
+
+/* Checkbox styling */
+#showPasswordCheck,
+#showConfirmPasswordCheck {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  margin: 0;
+  accent-color: rgb(14, 202, 80);
+}
+
+#forgotPasswordLogin {
+  margin-left: auto;
+  color: rgb(0, 123, 255);
+  text-decoration: none;
+}
+
+#forgotPasswordLogin:hover {
+  color: rgb(26, 50, 202);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .loginPageContainer h1 {
+      font-size: 32px !important;
+  }
+
+  .loginPageContainer > h4 {
+      font-size: 16px !important;
+  }
+
+  .loginInputTextsContainer {
+      padding: 40px 30px;
+  }
+}
+
+/* Registration Page Styles */
+.registrationPageContainer {
+  min-height: 100vh;
+  background: #475569;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.registrationPageContainer h1 {
+  font-size: 42px !important;
+  font-weight: 800 !important;
+  color: white !important;
+  margin-bottom: 8px !important;
+  text-align: center;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.registrationPageContainer > h4 {
+  font-size: 18px !important;
+  color: #c3c4c6 !important;
+  margin-top: 0 !important;
+  margin-bottom: 30px !important;
+  text-align: center;
+  font-style: italic !important;
+  font-weight: normal !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.registrationInputsContainer {
+  width: 100%;
+  max-width: 500px;
+  background: linear-gradient(135deg, rgba(13, 27, 42, 0.9), rgba(27, 38, 59, 0.9));
+  border-radius: 24px;
+  padding: 50px 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.registrationInputs {
+  width: 100%;
+}
+
+.registrationInputs form {
+  display: flex;
+  flex-direction: column;
+}
+
+.registrationInputs h4 {
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: white !important;
+  margin-bottom: 8px !important;
+  margin-top: 20px !important;
+}
+
+.registrationInputs form > h4:first-of-type {
+  margin-top: 0 !important;
+}
+
+.registrationInputs h5 {
+  font-size: 13px !important;
+  font-weight: normal !important;
+  color: #8b929a !important;
+  margin: 0 0 8px 0 !important;
+  font-style: italic !important;
+}
+
+.registrationInputs input[type="text"],
+.registrationInputs input[type="email"],
+.registrationInputs input[type="password"] {
+  width: 100% !important;
+  padding: 14px 16px !important;
+  font-size: 15px !important;
+  border: 2px solid rgba(226, 232, 240, 0.2) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: white !important;
+  border-radius: 10px !important;
+  outline: none !important;
+  transition: all 0.2s ease !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+  box-sizing: border-box !important;
+  margin-bottom: 0 !important;
+}
+
+.registrationInputs input[type="text"]:focus,
+.registrationInputs input[type="email"]:focus,
+.registrationInputs input[type="password"]:focus {
+  border-color: rgba(14, 202, 80, 0.6) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 0 0 3px rgba(14, 202, 80, 0.1) !important;
+}
+
+.registrationInputs input::placeholder {
+  color: #8b929a !important;
+}
+
+/* Fix for red border validation */
+.registrationInputs input[style*="borderColor"] {
+  border-width: 2px !important;
+  border-style: solid !important;
+}
+
+.passwordText {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0;
+}
+
+.passwordText h4 {
+  color: white !important;
+  font-size: 15px !important;
+  margin-bottom: 8px !important;
+  margin-top: 20px !important;
+}
+
+.passwordText h5 {
+  color: #8b929a !important;
+  font-size: 13px !important;
+  font-weight: normal !important;
+  margin: 0 0 8px 0 !important;
+  font-style: italic !important;
+}
+
+.showPasswordLogin {
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.showPasswordLogin input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  margin: 0;
+  accent-color: rgb(14, 202, 80);
+}
+
+.showPasswordLogin a {
+  font-size: 14px !important;
+  color : rgb(0, 123, 255);
+  text-decoration: none !important;
+  margin-left: auto !important;
+  font-weight: 500 !important;
+  transition: color 0.2s ease !important;
+  padding-left: 5px !important;
+  margin-bottom: 0 !important;
+  margin-top: 0 !important;
+}
+
+.showPasswordLogin a:hover {
+  color:rgb(26, 50, 202);
+  text-decoration: underline !important;
+}
+
+#signUp {
+  width: 100%;
+  background-color: rgb(14, 202, 80) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 12px !important;
+  padding: 16px !important;
+  font-size: 17px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  margin-top: 24px !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 12px rgba(14, 202, 80, 0.3) !important;
+}
+
+#signUp:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(14, 202, 80, 0.4) !important;
+  background-color: rgb(25, 177, 78) !important;
+}
+
+.alreadyHaveAnAccountRegPage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(226, 232, 240, 0.2);
+}
+
+.alreadyHaveAnAccountRegPage h4 {
+  font-size: 15px !important;
+  color: #c3c4c6 !important;
+  margin: 0 !important;
+  font-weight: normal !important;
+}
+
+.alreadyHaveAnAccountRegPage a {
+  font-size: 15px !important;
+  color : rgb(0, 123, 255);
+  text-decoration: none !important;
+  font-weight: 600 !important;
+  transition: color 0.2s ease !important;
+}
+
+.alreadyHaveAnAccountRegPage a:hover {
+  color:rgb(26, 50, 202);
+  cursor : pointer;
+  text-decoration: underline !important;
+}
+
+/* Error message styling */
+.registrationInputs p {
+  background: rgba(254, 202, 202, 0.15) !important;
+  border: 1px solid rgba(252, 165, 165, 0.3) !important;
+  border-radius: 8px !important;
+  padding: 12px 16px !important;
+  margin: 16px 0 0 0 !important;
+  font-size: 14px !important;
+  color: #fca5a5 !important;
+  font-weight: bold !important;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .registrationPageContainer h1 {
+      font-size: 32px !important;
+  }
+
+  .registrationPageContainer > h4 {
+      font-size: 16px !important;
+  }
+
+  .registrationInputsContainer {
+      padding: 40px 30px;
+  }
+}
+
+/* Forgot Password Page Styles */
+.forgotPasswordContainer {
+  min-height: 100vh;
+  background: #475569;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.forgotPasswordContainer h1 {
+  font-size: 42px !important;
+  font-weight: 800 !important;
+  color: white !important;
+  margin-bottom: 30px !important;
+  text-align: center;
+  width: 100%; /* Add this */
+}
+
+.forgotPasswordBoxPadder {
+  width: 100%;
+  max-width: 600px;
+  display: flex; /* Add this */
+  justify-content: center; /* Add this */
+}
+
+.forgotPassword {
+  width: 100%;
+  background: linear-gradient(135deg, rgba(13, 27, 42, 0.9), rgba(27, 38, 59, 0.9));
+  border-radius: 24px;
+  padding: 50px 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.forgotPassword form {
+  display: flex;
+  flex-direction: column;
+}
+
+.forgotPassword h4 {
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: white !important;
+  margin-bottom: 8px !important;
+  margin-top: 0 !important;
+}
+
+.forgotPassword input[type="email"] {
+  width: 100% !important;
+  padding: 14px 16px !important;
+  font-size: 15px !important;
+  border: 2px solid rgba(226, 232, 240, 0.2) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: white !important;
+  border-radius: 10px !important;
+  outline: none !important;
+  transition: all 0.2s ease !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+  box-sizing: border-box !important;
+  margin-bottom: 0 !important;
+}
+
+.forgotPassword input[type="email"]:focus {
+  border-color: rgba(14, 202, 80, 0.6) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 0 0 3px rgba(14, 202, 80, 0.1) !important;
+}
+
+.forgotPassword input::placeholder {
+  color: #8b929a !important;
+}
+
+.forgotPassword button {
+  width: 100%;
+  background-color: rgb(14, 202, 80) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 12px !important;
+  padding: 16px !important;
+  font-size: 17px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  margin-top: 24px !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 12px rgba(14, 202, 80, 0.3) !important;
+}
+
+.forgotPassword button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(14, 202, 80, 0.4) !important;
+  background-color: rgb(25, 177, 78) !important;
+}
+
+/* Error message styling */
+.forgotPassword p {
+  background: rgba(254, 202, 202, 0.15) !important;
+  border: 1px solid rgba(252, 165, 165, 0.3) !important;
+  border-radius: 8px !important;
+  padding: 12px 16px !important;
+  margin: 16px 0 0 0 !important;
+  font-size: 14px !important;
+  color: #fca5a5 !important;
+  font-weight: bold !important;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .forgotPasswordContainer h1 {
+      font-size: 32px !important;
+  }
+
+  .forgotPassword {
+      padding: 40px 30px;
+  }
+}
+
+html {
+    height: 100%;
+    background: #475569;
+    overscroll-behavior: none; 
+  }
+  
+body {
+    min-height: 100%;
+    margin: 0;
+    background: transparent; 
+    overscroll-behavior: none;
+  }
+
+/* Welcome Page Styles */
+.HomePageContainer {
+  min-height: 100vh;
+  background: #475569;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.HomePageIfNotLoggedIn {
+  max-width: 1100px;
+  width: 100%;
+  background: linear-gradient(135deg, rgba(13, 27, 42, 0.9), rgba(27, 38, 59, 0.9));
+  border-radius: 24px;
+  padding: 60px 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.HomePageIfNotLoggedIn h1 {
+  font-size: 48px !important;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 16px !important;
+  text-align: center;
+}
+
+.HomePageIfNotLoggedIn h3:first-of-type {
+  font-size: 20px !important;
+  color: #c3c4c6 !important;
+  max-width: 600px;
+  margin: 0 auto 30px !important;
+  text-align: center;
+  font-weight: normal !important;
+  font-style: italic !important;
+}
+
+.HomePageIfNotLoggedIn h3:nth-of-type(2) {
+  font-size: 18px !important;
+  color: #8b929a !important;
+  margin: 0 0 30px 0 !important;
+  text-align: center;
+  font-weight: normal !important;
+  font-style: italic !important;
+}
+
+.HomePageReasons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  width: 100%;
+  max-width: 900px;
+  margin-bottom: 50px;
+}
+
+.HomePageReasons p {
+  background: #f7fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 32px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  font-size: 16px;
+  color: #2d3748;
+  font-weight: 600;
+  margin: 0;
+}
+
+.HomePageReasons p:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(71, 85, 105, 0.2);
+  border-color: #475569;
+}
+
+.HomePageReasons img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.HomePageIfNotLoggedIn h3.goalText {
+  background: linear-gradient(135deg, rgba(71, 85, 105, 0.1) 0%, rgba(100, 116, 139, 0.1) 100%);
+  border-radius: 16px;
+  padding: 32px !important;
+  max-width: 800px;
+  text-align: center;
+  line-height: 1.8 !important;
+  font-size: 16px !important;
+  color: white !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  margin: 0 0 40px 0 !important;
+}
+
+.HomePageIfNotLoggedIn button {
+  background-color: rgb(14, 202, 80);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 18px 48px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(71, 85, 105, 0.4);
+}
+
+.HomePageIfNotLoggedIn button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(71, 85, 105, 0.5);
+  background-color: rgb(25, 177, 78);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .HomePageIfNotLoggedIn {
+      padding: 40px 24px;
+  }
+
+  .HomePageIfNotLoggedIn h1 {
+      font-size: 36px !important;
+  }
+
+  .HomePageIfNotLoggedIn h3:first-of-type {
+      font-size: 18px !important;
+  }
+
+  .HomePageReasons {
+      grid-template-columns: 1fr;
+      gap: 20px;
+  }
+
+  .HomePageIfNotLoggedIn button {
+      padding: 16px 40px;
+      font-size: 16px;
+  }
+}
+
+.HomePageIfLoggedIn{
+    font-family: Arial;
+}
+
+/* Confirm Verification Code Page Styles */
+.confirmationCodeContainer {
+  min-height: 100vh;
+  background: #475569;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.confirmationCodeContainer h1 {
+  font-size: 42px !important;
+  font-weight: 800 !important;
+  color: white !important;
+  margin-bottom: 30px !important;
+  text-align: center;
+  width: 100%;
+}
+
+.confirmationCodeBoxPadder {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  justify-content: center;
+}
+
+.confirmationCode {
+  width: 100%;
+  background: linear-gradient(135deg, rgba(13, 27, 42, 0.9), rgba(27, 38, 59, 0.9));
+  border-radius: 24px;
+  padding: 50px 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.confirmationCode form {
+  display: flex;
+  flex-direction: column;
+}
+
+.confirmationCode h4 {
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: white !important;
+  margin-bottom: 8px !important;
+  margin-top: 0 !important;
+}
+
+.confirmationCode input[type="text"],
+.confirmationCode input {
+  width: 100% !important;
+  padding: 14px 16px !important;
+  font-size: 15px !important;
+  border: 2px solid rgba(226, 232, 240, 0.2) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: white !important;
+  border-radius: 10px !important;
+  outline: none !important;
+  transition: all 0.2s ease !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+  box-sizing: border-box !important;
+  margin-bottom: 0 !important;
+}
+
+.confirmationCode input:focus {
+  border-color: rgba(14, 202, 80, 0.6) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 0 0 3px rgba(14, 202, 80, 0.1) !important;
+}
+
+.confirmationCode input::placeholder {
+  color: #8b929a !important;
+}
+
+.confirmationCode button {
+  width: 100%;
+  background-color: rgb(14, 202, 80) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 12px !important;
+  padding: 16px !important;
+  font-size: 17px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  margin-top: 24px !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 12px rgba(14, 202, 80, 0.3) !important;
+}
+
+.confirmationCode button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(14, 202, 80, 0.4) !important;
+  background-color: rgb(25, 177, 78) !important;
+}
+
+/* Error message styling */
+.confirmationCode p {
+  background: rgba(254, 202, 202, 0.15) !important;
+  border: 1px solid rgba(252, 165, 165, 0.3) !important;
+  border-radius: 8px !important;
+  padding: 12px 16px !important;
+  margin: 16px 0 0 0 !important;
+  font-size: 14px !important;
+  color: #fca5a5 !important;
+  font-weight: bold !important;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .confirmationCodeContainer h1 {
+      font-size: 32px !important;
+  }
+
+  .confirmationCode {
+      padding: 40px 30px;
+  }
+}
+
+/* Create New Password Page Styles */
+.createNewPasswordContainer {
+  min-height: 100vh;
+  background: #475569;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.createNewPasswordContainer h1 {
+  font-size: 42px !important;
+  font-weight: 800 !important;
+  color: white !important;
+  margin-bottom: 30px !important;
+  text-align: center;
+  width: 100%;
+}
+
+.createNewPasswordBoxPadder {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+}
+
+.createNewPassword {
+  width: 100%;
+  background: linear-gradient(135deg, rgba(13, 27, 42, 0.9), rgba(27, 38, 59, 0.9));
+  border-radius: 24px;
+  padding: 50px 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.createNewPassword form {
+  display: flex;
+  flex-direction: column;
+}
+
+.createNewPassword h4 {
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: white !important;
+  margin-bottom: 8px !important;
+}
+
+.createNewPassword input[type="text"],
+.createNewPassword input[type="password"] {
+  width: 100% !important;
+  padding: 14px 16px !important;
+  font-size: 15px !important;
+  border: 2px solid rgba(226, 232, 240, 0.2) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: white !important;
+  border-radius: 10px !important;
+  outline: none !important;
+  transition: all 0.2s ease !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+  box-sizing: border-box !important;
+  margin-bottom: 0 !important;
+}
+
+.createNewPassword input:focus {
+  border-color: rgba(14, 202, 80, 0.6) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 0 0 3px rgba(14, 202, 80, 0.1) !important;
+}
+
+.createNewPassword input::placeholder {
+  color: #8b929a !important;
+}
+
+.createNewPassword button {
+  width: 100%;
+  background-color: rgb(14, 202, 80) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 12px !important;
+  padding: 16px !important;
+  font-size: 17px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  margin-top: 24px !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 12px rgba(14, 202, 80, 0.3) !important;
+}
+
+.createNewPassword button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(14, 202, 80, 0.4) !important;
+  background-color: rgb(25, 177, 78) !important;
+}
+
+/* Error message styling */
+.createNewPassword p {
+  background: rgba(254, 202, 202, 0.15) !important;
+  border: 1px solid rgba(252, 165, 165, 0.3) !important;
+  border-radius: 8px !important;
+  padding: 12px 16px !important;
+  margin: 16px 0 0 0 !important;
+  font-size: 14px !important;
+  color: #fca5a5 !important;
+  font-weight: bold !important;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .createNewPasswordContainer h1 {
+      font-size: 32px !important;
+  }
+
+  .createNewPassword {
+      padding: 40px 30px;
+  }
+}
+
+.HomePageIfLoggedInNav {
+  min-height: 100vh;
+  background: #475569;
+  font-family: Arial, sans-serif;
+}
+
+.HomePageIfLoggedInContainer {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 20px;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+.welcome-header {
+  font-size: 48px;
+  text-align: center;
+  margin: 20px 0 40px 0;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  font-family: Arial, sans-serif;
+}
+
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.home-section {
+  background: rgba(45, 55, 72, 0.9);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: white;
+  border-bottom: 3px solid rgba(25, 147, 151, 0.5);
+  padding-bottom: 10px;
+  font-family: Arial, sans-serif;
+}
+
+/* News Cards */
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.news-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.news-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(25, 147, 151, 0.4);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.news-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.news-content {
+  padding: 12px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.news-content h3 {
+  font-size: 14px;
+  color: white;
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+.news-content p {
+  font-size: 11px;
+  color: #cbd5e0;
+  font-style: italic;
+  margin: 0;
+  margin-top: auto;
+  font-family: Arial, sans-serif;
+}
+
+/* Favorites Cards */
+.favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.player-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.player-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(25, 147, 151, 0.4);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.player-card a {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.player-images {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+  width: 80px;
+  height: 80px;
+}
+
+.player-headshot {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid white;
+  object-fit: cover;
+}
+
+.team-logo-small {
+  position: absolute;
+  bottom: -10px;
+  right: -10px;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  background: white;
+  border-radius: 50%;
+  padding: 3px;
+  border: 2px solid #2d3748;
+}
+
+.player-card h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 8px 0;
+  font-family: Arial, sans-serif;
+  width: 100%;
+}
+
+.player-pos {
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+  margin: 0 0 4px 0;
+  font-family: Arial, sans-serif;
+}
+
+.player-team {
+  font-size: 12px;
+  font-weight: 500;
+  color: #94a3b8;
+  margin: 0 0 6px 0;
+  font-family: Arial, sans-serif;
+}
+
+.player-age {
+  font-size: 12px;
+  font-weight: 500;
+  color: #cbd5e0;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.no-favorites {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #cbd5e0;
+  font-style: italic;
+  padding: 40px;
+  font-family: Arial, sans-serif;
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+  .home-grid {
+      grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .welcome-header {
+      font-size: 32px;
+  }
+  
+  .news-grid {
+      grid-template-columns: 1fr;
+  }
+  
+  .favorites-grid {
+      grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.NewsPageContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial;
+  width: 100%;
+  padding: 20px;
+}
+
+.NewsPageSearch{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.NewsPageContainer input{
+  border: none;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  padding: 0 20px;
+  outline: none;
+  width: 500px;
+  height: 50px;
+  font-size: 16px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-right: none;
+}
+
+.NewsPageContainer input::placeholder{
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.NewsPageContainer input:focus{
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.NewsPageSearch button{
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-left: none;
+  background: rgba(14, 202, 80, 0.8);
+  color: white;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  width: 100px;
+  height: 50px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.NewsPageSearch button:hover{
+  background: rgba(14, 202, 80, 1);
+}
+
+.NewsPageColumn{
+  width: 100%;
+  max-width: 1200px;
+}
+
+.NewsPageFrame{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+
+.NewsPageFrame h2{
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  font-size: 24px;
+  margin: 40px 0;
+}
+
+.NewsPageColumn a{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: linear-gradient(135deg, rgba(13, 27, 42, 0.9), rgba(27, 38, 59, 0.9));
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  height: 150px;
+  overflow: hidden;
+}
+
+.NewsPageColumn a:hover{
+  cursor: pointer;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.NewsPageColumn img{
+  width: 200px;
+  height: 120px;
+  border-radius: 8px;
+  margin-right: 20px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.news-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+
+.NewsPageColumn h3{
+  text-align: left;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.NewsPageColumn p{
+  text-align: left;
+  color: rgba(255, 255, 255, 0.6);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 14px;
+  margin: 0;
+}
+
+.NFLNavBar{
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    max-width: 795px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.NFLNavBar button {
+    flex: 0.5;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    background: rgba(255, 255, 255, 0.95);
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    font-weight: 600;
+    color: #2a5298;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+  
+.NFLNavBar button:hover {
+    background: white;
+    cursor: pointer;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #199397;
+}
+
+.NFLNavBarTeamFilter {
+    position: relative; 
+    display: flex;
+    flex-direction: column;
+}
+  
+.NFLNavBarTeamList {
+    position: absolute; 
+    top: 100%;          
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    background-color: rgba(255, 255, 255, 0.98);
+    padding: 0.5rem;
+    border: 1px solid rgba(25, 147, 151, 0.2);
+    border-radius: 8px;
+    width: max-content;   
+    z-index: 10;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    margin-top: 0.5rem;
+}
+  
+.NFLNavBarTeamList button {
+    width: 100%;
+    border: none;
+    text-align: left;
+    background: white;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    color: #2a5298;
+}
+
+.NFLNavBarTeamList button:hover {
+    background: linear-gradient(135deg, rgba(25, 147, 151, 0.1), rgba(42, 82, 152, 0.1));
+    transform: translateX(4px);
+    color: #199397;
+}
+
+.NFLNavBarTeamList button img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+/* NBA Navbar Styles */
+.NBANavBar{
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    max-width: 795px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.NBANavBar button {
+    flex: 0.5;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    background: rgba(255, 255, 255, 0.95);
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    font-weight: 600;
+    color: #2a5298;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+  
+.NBANavBar button:hover {
+    background: white;
+    cursor: pointer;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #199397;
+}
+
+.NBANavBarTeamFilter {
+    position: relative; 
+    display: flex;
+    flex-direction: column;
+}
+  
+.NBANavBarTeamList {
+    position: absolute; 
+    top: 100%;          
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    background-color: rgba(255, 255, 255, 0.98);
+    padding: 0.5rem;
+    border: 1px solid rgba(25, 147, 151, 0.2);
+    border-radius: 8px;
+    width: max-content;   
+    z-index: 10;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    margin-top: 0.5rem;
+}
+  
+.NBANavBarTeamList button {
+    width: 100%;
+    border: none;
+    text-align: left;
+    background: white;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    color: #2a5298;
+}
+
+.NBANavBarTeamList button:hover {
+    background: linear-gradient(135deg, rgba(25, 147, 151, 0.1), rgba(42, 82, 152, 0.1));
+    transform: translateX(4px);
+    color: #199397;
+}
+
+.NBANavBarTeamList button img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+.playerListPage{
+  display: flex;
+  flex-direction: column;
+  font-family: Arial;
+  width: 100%;
+}
+
+.playerListPageContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+}
+
+.playerListSearchBar{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.playerListSearchBar input{
+  border: none;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  padding: 0 20px;
+  outline: none;
+  width: 500px;
+  height: 50px;
+  font-size: 16px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-right: none;
+}
+
+.playerListSearchBar input::placeholder{
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.playerListSearchBar input:focus{
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.playerListSearchBar button{
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-left: none;
+  background: rgba(14, 202, 80, 0.8);
+  color: white;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  width: 100px;
+  height: 50px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.playerListSearchBar button:hover{
+  background: rgba(14, 202, 80, 1);
+}
+
+.playerListPageFrame{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  align-items: center;
+}
+
+/* Override any constraints on the navbars */
+.playerListPageFrame .NFLNavBar,
+.playerListPageFrame .NBANavBar {
+  width: 47%;
+  max-width: none !important;
+}
+
+.errorMessage{
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 20px;
+  margin: 40px 0;
+}
+
+.playerListCol{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 1005px;
+}
+
+.playerListCol a{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  height: 100px;
+  border-radius: 12px;
+  padding: 15px;
+  background: linear-gradient(135deg, rgba(13, 27, 42, 0.9), rgba(27, 38, 59, 0.9));
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.playerListCol a:hover{
+  cursor: pointer;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.playerListCol a h3{
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 6px 0;
+}
+
+.playerListCol a h4{
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+  padding-left: 85px;
+}
+
+.playerListCol img{
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.playerListCol svg{
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.errorMessage{
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 10px;
+}
+
+.NFLPlayerDataPage {
+    min-height: 100vh;
+    background: #475569;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    overflow-x: hidden;
+  }
+  
+  .NFLPlayerDataContainer {
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .section-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 16px 0;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  /* Profile Section */
+  .NFLPlayerDataPageHeadshotRow {
+    background: #2d3748;
+    padding: 32px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    flex-wrap: wrap;
+    position: relative;
+  }
+  
+  .player-headshot {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid white;
+    object-fit: cover;
+  }
+  
+  .player-name-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .player-name-section h2 {
+    font-size: 36px;
+    font-weight: 700;
+    margin: 0;
+    color: white;
+  }
+  
+  .favorite-button-container {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .add-favorite-btn,
+  .remove-favorite-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .add-favorite-btn {
+    background-color: rgb(14, 202, 80);
+    color: white;
+  }
+  
+  .add-favorite-btn:hover {
+    background-color: rgb(25, 177, 78);
+    transform: translateY(-2px);
+  }
+  
+  .remove-favorite-btn {
+    background-color: #ef4444;
+    color: white;
+  }
+  
+  .remove-favorite-btn:hover {
+    background-color: #dc2626;
+    transform: translateY(-2px);
+  }
+  
+  .NFLPlayerDataPageTeamStack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .team-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+  }
+  
+  .NFLPlayerDataPageTeamStack h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #cbd5e0;
+  }
+  
+  .profile-item-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+  }
+  
+  .profile-item-wrapper h3:first-child {
+    font-size: 12px;
+    font-weight: 600;
+    color: #94a3b8;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .profile-item-wrapper h3:last-child {
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+  }
+  
+/* Game Logs Section - Table Style */
+.NFLPlayerDataPageGameLogContainer {
+    background: #2d3748;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    overflow-x: auto;
+  }
+  
+  .NFLPlayerDataPageGameLogHeader {
+    display: flex;
+    gap: 8px;
+    padding: 12px 0;
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    min-width: fit-content;
+  }
+  
+  .NFLPlayerDataPageGameLogRow {
+    display: flex;
+    gap: 8px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  
+  .NFLPlayerDataPageGameLogRow:hover {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 6px;
+  }
+  
+  .week-col {
+    min-width: 50px;
+    text-align: center;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .opp-col {
+    min-width: 80px;
+    text-align: center;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .score-col {
+    min-width: 100px;
+    text-align: center;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .stat-col {
+    min-width: 100px;
+    text-align: center;
+    padding: 0 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+  
+  .stat-header {
+    font-size: 12px;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+  }
+  
+  .stat-category {
+    font-size: 10px;
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  
+  .stat-value-cell {
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+  }
+  
+  /* Previous Season Stats - Table Style */
+  .NFLPlayerDataPagePrevStats {
+    background: #2d3748;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    overflow-x: auto;
+  }
+  
+  .NFLPlayerDataPagePrevSeasonStatsHeader {
+    display: flex;
+    gap: 8px;
+    padding: 12px 0;
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .NFLPlayerDataPagePrevSeasonStatsRow {
+    display: flex;
+    gap: 8px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.2s;
+    min-width: fit-content;
+  }
+  
+  .NFLPlayerDataPagePrevSeasonStatsRow:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .year-col {
+    min-width: 80px;
+    text-align: center;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  
+  .prev-stat-col {
+    min-width: 140px;
+    text-align: center;
+    padding: 0 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+  
+  .stat-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+  }
+  
+  .stat-rank {
+    font-size: 11px;
+    font-weight: 600;
+    color: #94a3b8;
+  }
+  
+  /* Loading State */
+  .NFLPlayerDataContainer h2 {
+    text-align: center;
+    padding: 60px 20px;
+    color: #cbd5e0;
+  }
+  
+  /* Scrollbar Styling */
+  .NFLPlayerDataPageGameLogContainer::-webkit-scrollbar,
+  .NFLPlayerDataPagePrevStats::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+  }
+  
+  .NFLPlayerDataPageGameLogContainer::-webkit-scrollbar-track,
+  .NFLPlayerDataPagePrevStats::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+  }
+  
+  .NFLPlayerDataPageGameLogContainer::-webkit-scrollbar-thumb,
+  .NFLPlayerDataPagePrevStats::-webkit-scrollbar-thumb {
+    background: white;
+    border-radius: 4px;
+  }
+  
+  .NFLPlayerDataPageGameLogContainer::-webkit-scrollbar-thumb:hover,
+  .NFLPlayerDataPagePrevStats::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.8);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .NFLPlayerDataPageHeadshotRow {
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    
+    .profile-item-wrapper {
+      flex: 1;
+      min-width: 100px;
+    }
+  
+    .favorite-button-container {
+      position: static;
+      margin-top: 10px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .player-name-section h2 {
+      font-size: 28px;
+    }
+    
+    .NFLPlayerDataPageHeadshotRow {
+      padding: 20px;
+    }
+    
+    .player-headshot {
+      width: 100px;
+      height: 100px;
+    }
+    
+    .NFLPlayerDataPageGameLogHeader,
+    .NFLPlayerDataPageGameLogRow {
+      font-size: 12px;
+    }
+    
+    .stat-col,
+    .prev-stat-col {
+      min-width: 60px;
+    }
+  
+    .favorite-button-container {
+      position: static;
+      margin-top: 10px;
+    }
+  }
+
+  /* Add this to your existing CSS */
+.game-log-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  position: sticky;
+  left: 0;
+  background: #2d3748;
+  z-index: 10;
+  padding-bottom: 8px;
+}
+
+.year-selector {
+  display: flex;
+  gap: 8px;
+  position: sticky;
+  right: 0;
+  background: #2d3748;
+  padding-left: 16px;
+}
+
+.year-button {
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.year-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.year-button.active {
+  background: rgb(14, 202, 80);
+  border-color: rgb(14, 202, 80);
+}
+
+  .NBAPlayerDataPage {
+    min-height: 100vh;
+    background: #475569;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    overflow-x: hidden;
+  }
+  
+  .NBAPlayerDataContainer {
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .section-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 16px 0;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  /* Profile Section */
+  .NBAPlayerDataPageHeadshotRow {
+    background: #2d3748;
+    padding: 32px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    flex-wrap: wrap;
+    position: relative;
+  }
+  
+  .player-headshot {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid white;
+    object-fit: cover;
+  }
+  
+  .player-name-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .player-name-section h2 {
+    font-size: 36px;
+    font-weight: 700;
+    margin: 0;
+    color: white;
+  }
+  
+  .favorite-button-container {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .add-favorite-btn,
+  .remove-favorite-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .add-favorite-btn {
+    background-color: rgb(14, 202, 80);
+    color: white;
+  }
+  
+  .add-favorite-btn:hover {
+    background-color: rgb(25, 177, 78);
+    transform: translateY(-2px);
+  }
+  
+  .remove-favorite-btn {
+    background-color: #ef4444;
+    color: white;
+  }
+  
+  .remove-favorite-btn:hover {
+    background-color: #dc2626;
+    transform: translateY(-2px);
+  }
+  
+  .NBAPlayerDataPageTeamStack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .team-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+  }
+  
+  .NBAPlayerDataPageTeamStack h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #cbd5e0;
+  }
+  
+  .profile-item-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+  }
+  
+  .profile-item-wrapper h3:first-child {
+    font-size: 12px;
+    font-weight: 600;
+    color: #94a3b8;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .profile-item-wrapper h3:last-child {
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+  }
+  
+/* Game Logs Section - Table Style */
+.NBAPlayerDataPageGameLogContainer {
+    background: #2d3748;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    overflow-x: auto;
+  }
+  
+  .NBAPlayerDataPageGameLogHeader {
+    display: flex;
+    gap: 8px;
+    padding: 12px 0;
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    min-width: fit-content;
+  }
+  
+  .NBAPlayerDataPageGameLogRow {
+    display: flex;
+    gap: 8px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  
+  .NBAPlayerDataPageGameLogRow:hover {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 6px;
+  }
+  
+  .game-col {
+    min-width: 50px;
+    text-align: center;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .date-col {
+    min-width: 70px;
+    text-align: center;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .opp-col {
+    min-width: 80px;
+    text-align: center;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .score-col {
+    min-width: 100px;
+    text-align: center;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .stat-col {
+    min-width: 100px;
+    text-align: center;
+    padding: 0 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+  
+  .stat-header {
+    font-size: 12px;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+  }
+  
+  .stat-category {
+    font-size: 10px;
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  
+  .stat-value-cell {
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+  }
+  
+  /* Previous Season Stats - Table Style */
+  .NBAPlayerDataPagePrevStats {
+    background: #2d3748;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    overflow-x: auto;
+  }
+  
+  .NBAPlayerDataPagePrevSeasonStatsHeader {
+    display: flex;
+    gap: 8px;
+    padding: 12px 0;
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .NBAPlayerDataPagePrevSeasonStatsRow {
+    display: flex;
+    gap: 8px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.2s;
+    min-width: fit-content;
+  }
+  
+  .NBAPlayerDataPagePrevSeasonStatsRow:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .year-col {
+    min-width: 80px;
+    text-align: center;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  
+  .prev-stat-col {
+    min-width: 140px;
+    text-align: center;
+    padding: 0 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+  
+  .stat-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+  }
+  
+  .stat-rank {
+    font-size: 11px;
+    font-weight: 600;
+    color: #94a3b8;
+  }
+  
+  /* Loading State */
+  .NBAPlayerDataContainer h2 {
+    text-align: center;
+    padding: 60px 20px;
+    color: #cbd5e0;
+  }
+  
+  /* Scrollbar Styling */
+  .NBAPlayerDataPageGameLogContainer::-webkit-scrollbar,
+  .NBAPlayerDataPagePrevStats::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+  }
+  
+  .NBAPlayerDataPageGameLogContainer::-webkit-scrollbar-track,
+  .NBAPlayerDataPagePrevStats::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+  }
+  
+  .NBAPlayerDataPageGameLogContainer::-webkit-scrollbar-thumb,
+  .NBAPlayerDataPagePrevStats::-webkit-scrollbar-thumb {
+    background: white;
+    border-radius: 4px;
+  }
+  
+  .NBAPlayerDataPageGameLogContainer::-webkit-scrollbar-thumb:hover,
+  .NBAPlayerDataPagePrevStats::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.8);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .NBAPlayerDataPageHeadshotRow {
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    
+    .profile-item-wrapper {
+      flex: 1;
+      min-width: 100px;
+    }
+  
+    .favorite-button-container {
+      position: static;
+      margin-top: 10px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .player-name-section h2 {
+      font-size: 28px;
+    }
+    
+    .NBAPlayerDataPageHeadshotRow {
+      padding: 20px;
+    }
+    
+    .player-headshot {
+      width: 100px;
+      height: 100px;
+    }
+    
+    .NBAPlayerDataPageGameLogHeader,
+    .NBAPlayerDataPageGameLogRow {
+      font-size: 12px;
+    }
+    
+    .stat-col,
+    .prev-stat-col {
+      min-width: 60px;
+    }
+  
+    .favorite-button-container {
+      position: static;
+      margin-top: 10px;
+    }
+  }
+
+  /* Game Log Header Row with Year Selector */
+.game-log-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .year-selector {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .year-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .year-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+  }
+  
+  .year-button.active {
+    background: linear-gradient(135deg, #199397, #2a5298);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .game-log-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .year-selector {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .year-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .year-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+  }
+  
+  .year-button.active {
+    background: linear-gradient(135deg, #199397, #2a5298);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
