@@ -18,6 +18,9 @@ function PlayerLists({sportName}){
     const [error,setError] = useState("");
     const navigate = useNavigate();
 
+    const API_URL = import.meta.env.VITE_API_URL; 
+
+
     useEffect(() => {
         async function checkUserAuth(){
             const accessToken = sessionStorage.getItem("accessToken");
@@ -33,7 +36,7 @@ function PlayerLists({sportName}){
 
             if(!accessToken && refreshToken){
                 try{
-                    const getRefreshToken = await fetch("http://localhost:8080/api/refresh", {
+                    const getRefreshToken = await fetch(`${API_URL}/api/refresh`, {
                         method : "POST",
                         headers : {"Content-Type" : "application/json"},
                         body : JSON.stringify({
@@ -66,7 +69,7 @@ function PlayerLists({sportName}){
             }
 
             try{
-                const allPlayerResponse = await fetch(`http://localhost:8080/${sportName}/players`,{
+                const allPlayerResponse = await fetch(`${API_URL}/${sportName}/players`,{
                     method : "GET",
                     headers : {
                         "Content-Type" : "application/json",
@@ -95,7 +98,7 @@ function PlayerLists({sportName}){
         } 
         else if(searchCategory === "Favorite" && selectedPosition === "All"){
             try{
-                const players = await fetch(`http://localhost:8080/user/${sportName}Players/favorite`,{
+                const players = await fetch(`${API_URL}/user/${sportName}Players/favorite`,{
                     method : "POST",
                     headers : {
                         "Content-Type" : "application/json",
@@ -120,7 +123,7 @@ function PlayerLists({sportName}){
         }
         else if(searchCategory === "Favorite" && selectedPosition !== "All"){
             try{
-                const players = await fetch(`http://localhost:8080/user/${sportName}Players/favorite/position?pos=${selectedPosition}`,{
+                const players = await fetch(`${API_URL}/user/${sportName}Players/favorite/position?pos=${selectedPosition}`,{
                     method : "POST",
                     headers : {
                         "Content-Type" : "application/json",
@@ -147,7 +150,7 @@ function PlayerLists({sportName}){
             if(selectedPosition === "All"){
                 try{
                     const players = await fetch(
-                        `http://localhost:8080/${sportName}/team/players?teamName=${searchCategory}`,{
+                        `${API_URL}/${sportName}/team/players?teamName=${searchCategory}`,{
                             method : "GET",
                             headers : {
                                 "Content-Type" : "application/json",
@@ -167,7 +170,7 @@ function PlayerLists({sportName}){
             } else {
                 try{
                     const players = await fetch(
-                        `http://localhost:8080/${sportName}/team/position/players?teamName=${searchCategory}&position=${selectedPosition}`,{
+                        `${API_URL}/${sportName}/team/position/players?teamName=${searchCategory}&position=${selectedPosition}`,{
                             method : "GET",
                             headers : {
                                 "Content-Type" : "application/json",
@@ -187,7 +190,7 @@ function PlayerLists({sportName}){
             }
         } else {
             try{
-                const players = await fetch(`http://localhost:8080/${sportName}/position/players?position=${selectedPosition}`,{
+                const players = await fetch(`${API_URL}/${sportName}/position/players?position=${selectedPosition}`,{
                     method : "GET",
                     headers : {
                         "Content-Type" : "application/json",
@@ -210,7 +213,7 @@ function PlayerLists({sportName}){
     async function loadPlayerByName(playerName){
         if(searchCategory === "Filter"){
             try{
-                const playerResponse = await fetch(`http://localhost:8080/${sportName}/players/player/name?name=${playerName}`,{
+                const playerResponse = await fetch(`${API_URL}/${sportName}/players/player/name?name=${playerName}`,{
                     method : "GET",
                     headers : {
                         "Content-Type" : "application/json",
@@ -234,7 +237,7 @@ function PlayerLists({sportName}){
             }
         } else if(searchCategory === "Favorite"){
             try{
-                const playerResponse = await fetch(`http://localhost:8080/user/${sportName}Players/favorite/playername?playerName=${searchPlayer}`,{
+                const playerResponse = await fetch(`${API_URL}/user/${sportName}Players/favorite/playername?playerName=${searchPlayer}`,{
                     method : "GET",
                     headers : {
                         "Content-Type" : "application/json",

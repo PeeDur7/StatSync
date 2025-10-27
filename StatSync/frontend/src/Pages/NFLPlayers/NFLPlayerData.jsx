@@ -15,6 +15,9 @@ function NFLPlayerData() {
   const [addButton, setAddButton] = useState(true);
   const [selectedGameLogYear, setSelectedGameLogYear] = useState(null);
 
+  const API_URL = import.meta.env.VITE_API_URL; 
+
+
   const nflTeams = [
     "Cardinals", "Falcons", "Ravens", "Bills", "Panthers", "Bears", "Bengals", 
     "Browns", "Cowboys", "Broncos", "Lions", "Packers", "Texans", "Colts", 
@@ -143,7 +146,7 @@ function NFLPlayerData() {
 
       if (!accessToken && refreshToken) {
         try {
-          const getRefreshToken = await fetch("http://localhost:8080/api/refresh", {
+          const getRefreshToken = await fetch(`${API_URL}/api/refresh`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ refreshToken }),
@@ -171,7 +174,7 @@ function NFLPlayerData() {
 
     async function getPlayerData() {
       try {
-        const res = await fetch(`http://localhost:8080/nfl/player/data?id=${playerId}`, {
+        const res = await fetch(`${API_URL}/nfl/player/data?id=${playerId}`, {
           method: "GET",
           headers: { "Content-Type": "application/json", Authorization: `Bearer ${accessToken}` },
         });
@@ -212,7 +215,7 @@ function NFLPlayerData() {
         try{
             if(!player || !accessToken) return;
             
-            const respo = await fetch(`http://localhost:8080/user/nflPlayers/favorite/playername?playerName=${player.name}`,{
+            const respo = await fetch(`${API_URL}/user/nflPlayers/favorite/playername?playerName=${player.name}`,{
                 method : "POST",
                 headers : {
                     "Content-Type": "application/json", 
@@ -277,7 +280,7 @@ function NFLPlayerData() {
 
   const addToFavorites = async() => {
     try{
-        const respo = await fetch(`http://localhost:8080/user/nflPlayers/favorite/add`,{
+        const respo = await fetch(`${API_URL}/user/nflPlayers/favorite/add`,{
             method : "POST",
             headers: { 
                 "Content-Type": "application/json", 
@@ -298,7 +301,7 @@ function NFLPlayerData() {
 
   const removeFromFavorites = async() => {
     try {
-        const respo = await fetch(`http://localhost:8080/user/nflPlayers/favorite/remove`,{
+        const respo = await fetch(`${API_URL}/user/nflPlayers/favorite/remove`,{
             method : "PUT",
             headers: { 
                 "Content-Type": "application/json", 

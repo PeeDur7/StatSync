@@ -8,6 +8,7 @@ function LoginPage(){
     const navigate = useNavigate();
     const [showPassword,setShowPassword] = useState(false);
     const [error,setError] = useState("");
+    const API_URL = import.meta.env.VITE_API_URL; 
 
     useEffect(() => {
         async function checkUserAuth(){
@@ -25,7 +26,7 @@ function LoginPage(){
             
             else{
                 try{
-                    const getRefreshToken = await fetch("http://localhost:8080/api/refresh", {
+                    const getRefreshToken = await fetch(`${API_URL}/api/refresh`, {
                         method : "POST",
                         headers : {"Content-Type" : "application/json"},
                         body : JSON.stringify({
@@ -66,7 +67,7 @@ function LoginPage(){
         e.preventDefault();
         setError("");
         try {
-            const response = await fetch("http://localhost:8080/api/authenticate", {
+            const response = await fetch(`${API_URL}/api/authenticate`, {
                 method : "POST",
                 headers : {"Content-Type" : "application/json"},
                 body : JSON.stringify({

@@ -6,6 +6,7 @@ function ForgotPasswordPage(){
     const [error, setError] = useState("");
     const [buttonMessage,setButtonMessage] = useState("Send Verification Code");
     const navigate = useNavigate();
+    const API_URL = import.meta.env.VITE_API_URL; 
 
     useEffect(() => {
         async function checkUserAuth(){
@@ -23,7 +24,7 @@ function ForgotPasswordPage(){
             
             else{
                 try{
-                    const getRefreshToken = await fetch("http://localhost:8080/api/refresh", {
+                    const getRefreshToken = await fetch(`${API_URL}/api/refresh`, {
                         method : "POST",
                         headers : {"Content-Type" : "application/json"},
                         body : JSON.stringify({
@@ -49,7 +50,7 @@ function ForgotPasswordPage(){
         setButtonMessage("Loading...");
         try{
             const response = await fetch(
-                `http://localhost:8080/api/send/password/recovery?email=${encodeURIComponent(email)}`, {
+                `${API_URL}/api/send/password/recovery?email=${encodeURIComponent(email)}`, {
                 method : "GET",
                 headers : {"Content-Type" : "application/json"}
             });

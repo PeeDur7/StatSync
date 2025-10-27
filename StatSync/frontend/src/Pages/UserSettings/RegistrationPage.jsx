@@ -12,6 +12,7 @@ function RegistrationPage(){
     const [error, setError] = useState("");
     const passwordType = showPassword ? "text" : "password";
     const navigate = useNavigate();
+    const API_URL = import.meta.env.VITE_API_URL; 
 
     useEffect(() =>{
         async function checkUserAuth(){
@@ -29,7 +30,7 @@ function RegistrationPage(){
             
             else{
                 try{
-                    const getRefreshToken = await fetch("http://localhost:8080/api/refresh", {
+                    const getRefreshToken = await fetch(`${API_URL}/api/refresh`, {
                         method : "POST",
                         headers : {"Content-Type" : "application/json"},
                         body : JSON.stringify({
@@ -69,7 +70,7 @@ function RegistrationPage(){
                 setError("Passwords do not match");
                 return;
             }
-            const response = await fetch("http://localhost:8080/api/register", {
+            const response = await fetch(`${API_URL}/api/register`, {
                 method : "POST",
                 headers : {"Content-Type" : "application/json"},
                 body : JSON.stringify({

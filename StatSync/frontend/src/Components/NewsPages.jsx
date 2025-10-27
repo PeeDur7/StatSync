@@ -11,6 +11,9 @@ function NewsPages({sportName}){
     const[currentNews, setCurrentNews] = useState([]);
     const navigate = useNavigate();
 
+    const API_URL = import.meta.env.VITE_API_URL; 
+
+
     useEffect(() => {
         async function checkUserAuth(){
             const accessToken = sessionStorage.getItem("accessToken");
@@ -26,7 +29,7 @@ function NewsPages({sportName}){
 
             if(!accessToken && refreshToken){
                 try{
-                    const getRefreshToken = await fetch("http://localhost:8080/api/refresh", {
+                    const getRefreshToken = await fetch(`${API_URL}/api/refresh`, {
                         method : "POST",
                         headers : {"Content-Type" : "application/json"},
                         body : JSON.stringify({
@@ -57,7 +60,7 @@ function NewsPages({sportName}){
                 return;
             }
             try{
-                const newsResponse = await fetch(`http://localhost:8080/${sportName}/news`,{
+                const newsResponse = await fetch(`${API_URL}/${sportName}/news`,{
                     method : "GET",
                     headers : {
                         "Content-Type" : "application/json",
@@ -85,7 +88,7 @@ function NewsPages({sportName}){
         }
         setLastSearchedText(searchText);
         try{
-            const newsSearchResponse = await fetch(`http://localhost:8080/${sportName}/player/news?playerName=${searchText}`, {
+            const newsSearchResponse = await fetch(`${API_URL}/${sportName}/player/news?playerName=${searchText}`, {
                 method : "GET",
                 headers : {
                     "Content-Type" : "application/json",

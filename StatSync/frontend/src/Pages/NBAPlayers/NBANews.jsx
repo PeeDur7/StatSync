@@ -2,7 +2,9 @@ import { useEffect } from "react";
 import NewsPages from "../../Components/NewsPages";
 import { useNavigate } from "react-router-dom";
 
+
 function NBANews(){
+    const API_URL = import.meta.env.VITE_API_URL; 
     const navigate = useNavigate();
     useEffect(() => {
             async function checkUserAuth(){
@@ -16,7 +18,7 @@ function NBANews(){
     
                 if(!accessToken && refreshToken){
                     try{
-                        const getRefreshToken = await fetch("http://localhost:8080/api/refresh", {
+                        const getRefreshToken = await fetch(`${API_URL}/api/refresh`, {
                             method : "POST",
                             headers : {"Content-Type" : "application/json"},
                             body : JSON.stringify({

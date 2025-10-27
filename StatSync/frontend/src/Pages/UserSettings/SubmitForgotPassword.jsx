@@ -11,6 +11,7 @@ function SubmitForgotPassword(){
     const [showPassword,setShowPassword] = useState("");
     const [showConfirmPassword,setShowConfirmPassword] = useState("");
     const [error, setError] = useState("");
+    const API_URL = import.meta.env.VITE_API_URL; 
 
     useEffect(() => {
         if (!email) {
@@ -35,7 +36,7 @@ function SubmitForgotPassword(){
             
             else{
                 try{
-                    const getRefreshToken = await fetch("http://localhost:8080/api/refresh", {
+                    const getRefreshToken = await fetch(`${API_URL}/api/refresh`, {
                         method : "POST",
                         headers : {"Content-Type" : "application/json"},
                         body : JSON.stringify({
@@ -63,7 +64,7 @@ function SubmitForgotPassword(){
                 setError("Passwords must be at least 6 characters");
                 return;
             }
-            const response = await fetch("http://localhost:8080/api/create/new/password",{
+            const response = await fetch(`${API_URL}/api/create/new/password`,{
                 method : "POST",
                 headers : {"Content-Type" : "application/json"},
                 body : JSON.stringify({

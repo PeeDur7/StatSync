@@ -11,6 +11,7 @@ function HomePage(){
     const [nflPlayerFavorites,setNflPlayerFavorites] = useState([]);
     const [nbaPlayerFavorites,setNbaPlayerFavorites] = useState([]);
     const navigate = useNavigate();
+    const API_URL = import.meta.env.VITE_API_URL; 
 
     useEffect(() => {
         async function checkUserAuth(){
@@ -27,7 +28,7 @@ function HomePage(){
 
             if(!accessToken && refreshToken){
                 try{
-                    const getRefreshToken = await fetch("http://localhost:8080/api/refresh", {
+                    const getRefreshToken = await fetch(`${API_URL}/api/refresh`, {
                         method : "POST",
                         headers : {"Content-Type" : "application/json"},
                         body : JSON.stringify({
@@ -49,7 +50,7 @@ function HomePage(){
             }
 
             try{
-                const usernameFetch = await fetch("http://localhost:8080/api/home",{
+                const usernameFetch = await fetch(`${API_URL}/api/home`,{
                     method : "GET",
                     headers : {
                         "Content-Type" : "application/json",
@@ -74,7 +75,7 @@ function HomePage(){
         if(!access) return;
         async function loadNFLNews(){
             try{
-                const nflNewsResponse = await fetch("http://localhost:8080/nfl/news",{
+                const nflNewsResponse = await fetch(`${API_URL}/nfl/news`,{
                     method : "GET",
                     headers : {
                         "Content-Type" : "application/json",
@@ -93,7 +94,7 @@ function HomePage(){
 
         async function loadNBANews(){
             try{
-                const nbaNewsResponse = await fetch("http://localhost:8080/nba/news",{
+                const nbaNewsResponse = await fetch(`${API_URL}/nba/news`,{
                     method : "GET",
                     headers : {
                         "Content-Type" : "application/json",
@@ -115,7 +116,7 @@ function HomePage(){
             }
             try{
                 const nflFavoriteResponse = await 
-                    fetch("http://localhost:8080/user/nflPlayers/favorite",{
+                    fetch(`${API_URL}/user/nflPlayers/favorite`,{
                         method : "POST",
                         headers : {
                             "Content-Type" : "application/json",
@@ -139,7 +140,7 @@ function HomePage(){
             }
             try{
                 const nbaFavoriteResponse = await 
-                    fetch("http://localhost:8080/user/nbaPlayers/favorite",{
+                    fetch(`${API_URL}/user/nbaPlayers/favorite`,{
                         method : "POST",
                         headers : {
                             "Content-Type" : "application/json",

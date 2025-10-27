@@ -8,6 +8,7 @@ function NBANavBar({selectedPosition,setSelectedPosition,
     const[filterDropdown,setFilterDropdown] = useState(false);
     const [teamListDropdown,setTeamListDropdown] = useState(false);
     
+    
     useEffect(() => {
         async function getTeamInfo(){
             try{

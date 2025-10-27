@@ -10,6 +10,8 @@ function Navbar(){
     const [refresh, setRefresh] = useState("");
     const navigate = useNavigate();
 
+    const API_URL = import.meta.env.VITE_API_URL; 
+
     useEffect(() => {
             async function checkUserAuth(){
                 const accessToken = sessionStorage.getItem("accessToken");
@@ -22,7 +24,7 @@ function Navbar(){
     
                 if(!accessToken && refreshToken){
                     try{
-                        const getRefreshToken = await fetch("http://localhost:8080/api/refresh", {
+                        const getRefreshToken = await fetch(`${API_URL}/api/refresh`, {
                             method : "POST",
                             headers : {"Content-Type" : "application/json"},
                             body : JSON.stringify({
