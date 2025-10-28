@@ -1,5 +1,5 @@
 # Use an official lightweight Java 17 image
-FROM openjdk:17-jdk-slim
+FROM openjdk:21-jdk-slim
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -11,4 +11,4 @@ COPY . .
 RUN ./mvnw clean package -DskipTests
 
 # Run the JAR file (update the name if your JAR file is different)
-CMD ["java", "-jar", "StatSync/backend/target/NFL-NBAAnalytics-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "target/NFL-NBAAnalytics-0.0.1-SNAPSHOT.jar"]
