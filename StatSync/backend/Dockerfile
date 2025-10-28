@@ -7,6 +7,9 @@ WORKDIR /app
 # Copy everything from your backend into the container
 COPY . .
 
+# Second run
+RUN chmod +x ./mvnw
+
 # Build the app (skip tests for faster build)
 RUN ./mvnw clean package -DskipTests
 
