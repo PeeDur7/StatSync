@@ -4,9 +4,15 @@ import org.springframework.data.annotation.Id;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 //Data Transfer Object
 //Sent from the frontend during login, not saved in the db
+@Data
+@Getter
+@Setter
 public class AuthRequest {
     @Id
     private String id;

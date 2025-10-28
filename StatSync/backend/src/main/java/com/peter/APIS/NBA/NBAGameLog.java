@@ -19,7 +19,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class NBAGameLog {
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "null" })
     public static HashMap<String,Object> getCurrentSeasonGameLog(String id){
         String url = String.format("https://site.web.api.espn.com/apis/common/v3/sports/basketball/nba/athletes/%s/gamelog",id);
         HashMap<String,Object> currentSeasonGameLogAPI = jsonResponseAPI(url);
