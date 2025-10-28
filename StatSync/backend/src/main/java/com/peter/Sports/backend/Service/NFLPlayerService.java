@@ -46,8 +46,7 @@ public class NFLPlayerService {
     }
     
     @SuppressWarnings("unchecked")
-    @Scheduled(cron = "0 0 0 ? * TUE", zone = "America/New_York")
-    //@Scheduled(cron = "0 0 1 ? * THU", zone = "America/New_York")
+    @Scheduled(cron = "0 0 4 ? * TUE", zone = "America/New_York")
     public void getOrUpdateNFLPlayerCurrentSeason(){
         List<NFLPlayer> players = nflPlayerRepository.findAll();
         List<NFLPlayer> playersListUpdated = new ArrayList<>(); 
