@@ -21,7 +21,7 @@ public class NFLNews {
     @SuppressWarnings("unchecked")
     public static List<Map<String,String>>  fetchNFLNews(){
         List<Map<String,String>> nflNews = new ArrayList<>();
-        String url = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/news?limit=100";
+        String url = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/news?limit=20";
         Map<String,Object> espnNFLNewsAPI = jsonResponseAPI(url);
         List<Map<String,Object>> articles = (List<Map<String,Object>>) espnNFLNewsAPI.get("articles");
         if(articles == null){
