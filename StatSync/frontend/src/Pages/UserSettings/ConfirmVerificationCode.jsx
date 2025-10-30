@@ -17,42 +17,6 @@ function ConfirmVerificationCode(){
         }
     }, [email,navigate]);
 
-    useEffect(()=> {
-        async function checkUserAuth(){
-            const accessToken = sessionStorage.getItem("accessToken");
-            const refreshToken = localStorage.getItem("refreshToken");
-
-            if(accessToken && refreshToken){
-                navigate("/home");
-                return;
-            }
-
-            else if(!accessToken && !refreshToken){
-                return;
-            } 
-            
-            else{
-                try{
-                    const getRefreshToken = await fetch(`${API_URL}/api/refresh`, {
-                        method : "POST",
-                        headers : {"Content-Type" : "application/json"},
-                        body : JSON.stringify({
-                            refreshToken : refreshToken
-                        })
-                    });
-                    if(!getRefreshToken.ok){
-                        return;
-                    }
-                    const data = await getRefreshToken.json();
-                    navigate("/home");
-                    return;
-                } catch (error){
-                }
-            }
-        }
-        checkUserAuth();
-    },[]);
-
     async function confirmVerificationCode(e){
         e.preventDefault();
         setError("");

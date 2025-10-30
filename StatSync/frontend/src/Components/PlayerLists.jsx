@@ -3,12 +3,9 @@ import Navbar from "./Navbar";
 import NFLNavBar from "./NFLNavBar";
 import {User} from "lucide-react";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import NBANavBar from "./NBANavBar";
 
 function PlayerLists({sportName}){
-    const[access, setAccess] = useState("");
-    const [refresh, setRefresh] = useState("");
     const [dbPlayers, setDBPlayers] = useState([]); //all players from the DB
     const [searchPlayer, setSearchPlayer] = useState("");
     const [players, setPlayers] = useState([]); //this is the list of players to loop through
@@ -16,51 +13,9 @@ function PlayerLists({sportName}){
     const [searchCategory, setSearchCategory] = useState("Filter"); //the actual value of the category
     const [selectedPosition, setSelectedPosition] = useState("All");
     const [error,setError] = useState("");
-    const navigate = useNavigate();
 
     const API_URL = import.meta.env.VITE_API_URL; 
-
-
-    useEffect(() => {
-        async function checkUserAuth(){
-            const accessToken = sessionStorage.getItem("accessToken");
-            const refreshToken = localStorage.getItem("refreshToken");
-
-            if(!accessToken && !refreshToken){
-                navigate("/");
-                return;
-            } 
-
-            let accessTokenToUse = accessToken;
-            setAccess(accessTokenToUse);
-
-            if(!accessToken && refreshToken){
-                try{
-                    const getRefreshToken = await fetch(`${API_URL}/api/refresh`, {
-                        method : "POST",
-                        headers : {"Content-Type" : "application/json"},
-                        body : JSON.stringify({
-                            refreshToken : refreshToken
-                        })
-                    });
-                    if(!getRefreshToken.ok){
-                        navigate("/");
-                        return;
-                    }
-                    const data = await getRefreshToken.json();
-                    localStorage.setItem("refreshToken",data.refreshToken);
-                    sessionStorage.setItem("accessToken",data.accessToken);
-                    accessTokenToUse = data.accessToken;
-                    setAccess(accessTokenToUse);
-                    setRefresh(data.refreshToken);
-                } catch (error){
-
-                }
-            }
-        }
-
-        checkUserAuth();
-    },[]);
+    const access = sessionStorage.getItem("accessToken");
 
     useEffect(() => {
         async function loadAllPlayers(){
@@ -88,7 +43,7 @@ function PlayerLists({sportName}){
             }
         }
         loadAllPlayers();
-    },[access,refresh]);
+    },[access]);
 
     async function loadPlayerBySelectedPosition(){
         if(selectedPosition === "All" && searchCategory === "Filter"){

@@ -7,13 +7,12 @@ function NFLPlayerData() {
   const { playerId } = useParams();
   const navigate = useNavigate();
   const [player, setPlayer] = useState(null);
-  const [accessToken, setAccess] = useState("");
-  const [refreshToken, setRefresh] = useState("");
   const [gameLogs, setGameLogs] = useState({});
   const [seasonStats, setSeasonStats] = useState({});
   const [removeButton, setRemoveButton] = useState(false);
   const [addButton, setAddButton] = useState(true);
   const [selectedGameLogYear, setSelectedGameLogYear] = useState(null);
+  const accessToken = sessionStorage.getItem("accessToken");
 
   const API_URL = import.meta.env.VITE_API_URL; 
 
@@ -129,44 +128,6 @@ function NFLPlayerData() {
     
     return [...sortedStats, ...remainingStats];
   };
-
-  // User auth check
-  useEffect(() => {
-    async function checkUserAuth() {
-      const accessToken = sessionStorage.getItem("accessToken");
-      const refreshToken = localStorage.getItem("refreshToken");
-
-      if (!accessToken && !refreshToken) {
-        navigate("/");
-        return;
-      }
-
-      let accessTokenToUse = accessToken;
-      setAccess(accessTokenToUse);
-
-      if (!accessToken && refreshToken) {
-        try {
-          const getRefreshToken = await fetch(`${API_URL}/api/refresh`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ refreshToken }),
-          });
-          if (!getRefreshToken.ok) {
-            navigate("/");
-            return;
-          }
-          const data = await getRefreshToken.json();
-          localStorage.setItem("refreshToken", data.refreshToken);
-          sessionStorage.setItem("accessToken", data.accessToken);
-          accessTokenToUse = data.accessToken;
-          setAccess(accessTokenToUse);
-          setRefresh(data.refreshToken);
-        } catch (error) {
-        }
-      }
-    }
-    checkUserAuth();
-  }, [navigate]);
 
   // Fetch player data
   useEffect(() => {

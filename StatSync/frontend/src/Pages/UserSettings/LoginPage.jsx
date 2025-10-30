@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import PasswordText from "../../Components/PasswordText";
 
@@ -10,46 +10,6 @@ function LoginPage(){
     const [error,setError] = useState("");
     const API_URL = import.meta.env.VITE_API_URL; 
 
-    useEffect(() => {
-        async function checkUserAuth(){
-            const accessToken = sessionStorage.getItem("accessToken");
-            const refreshToken = localStorage.getItem("refreshToken");
-
-            if(accessToken && refreshToken){
-                navigate("/home");
-                return;
-            }
-
-            else if(!accessToken && !refreshToken){
-                return;
-            } 
-            
-            else{
-                try{
-                    const getRefreshToken = await fetch(`${API_URL}/api/refresh`, {
-                        method : "POST",
-                        headers : {"Content-Type" : "application/json"},
-                        body : JSON.stringify({
-                            refreshToken : refreshToken
-                        })
-                    });
-                    if(!getRefreshToken.ok){
-                        return;
-                    }
-                    const data = await getRefreshToken.json();
-                    navigate("/home");
-                    return;
-                } catch (error){
-                }
-            }
-        }
-        checkUserAuth();
-    },[]);
-
-    const changeShowPassword = () => {
-        setShowPassword(!showPassword);
-        setError("");
-    }
 
     const setUserInfo = (e) => {
         setUser(e.target.value);

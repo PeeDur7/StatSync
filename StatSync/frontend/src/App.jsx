@@ -12,25 +12,55 @@ import NFLPlayerData from "./Pages/NFLPlayers/NFLPlayerData";
 import NBANews from "./Pages/NBAPlayers/NBANews";
 import NBAPlayerList from "./Pages/NBAPlayers/NBAPlayerList";
 import NBAPlayerData from "./Pages/NBAPlayers/NBAPlayerData";
+import ProtectedRoute from "./Pages/UserSettings/ProtectedRoute";
 
 function App() {
 
     return(
         <Router>
             <Routes>
-                <Route path = "/registration" element={<RegistrationPage/>}/>
-                <Route path = "/login" element={<LoginPage/>}/>
-                <Route path = "/home" element={<HomePage/>}/>
-                <Route path = "/" element={<WelcomePage/>}/>
-                <Route path = "/forgotPassword" element={<ForgotPasswordPage/>}/>
-                <Route path = "/verifyCode" element={<ConfirmVerificationCode/>}/>
-                <Route path = "/createNewPassword" element={<SubmitForgotPassword/>}/>
-                <Route path = "/NFL/News" element={<NFLNews/>}/>
-                <Route path ="/NFL/Players" element={<NFLPlayerList/>}/>
-                <Route path="/NFL/Players/:playerId" element={<NFLPlayerData/>}/>
-                <Route path="/NBA/News" element={<NBANews/>}/>
-                <Route path="/NBA/Players" element={<NBAPlayerList/>}/>
-                <Route path="/NBA/Players/:playerId" element={<NBAPlayerData/>}/>
+                <Route path="/" element={<WelcomePage/>}/>
+                <Route path="/login" element={<LoginPage/>}/>
+                <Route path="/registration" element={<RegistrationPage/>}/>
+                <Route path="/forgotPassword" element={<ForgotPasswordPage/>}/>
+                <Route path="/verifyCode" element={<ConfirmVerificationCode/>}/>
+                <Route path="/createNewPassword" element={<SubmitForgotPassword/>}/>
+                
+                <Route path="/home" element={
+                    <ProtectedRoute>
+                        <HomePage/>
+                    </ProtectedRoute>
+                }/>
+                <Route path="/NFL/News" element={
+                    <ProtectedRoute>
+                        <NFLNews/>
+                    </ProtectedRoute>
+                }/>
+                <Route path="/NFL/Players" element={
+                    <ProtectedRoute>
+                        <NFLPlayerList/>
+                    </ProtectedRoute>
+                }/>
+                <Route path="/NFL/Players/:playerId" element={
+                    <ProtectedRoute>
+                        <NFLPlayerData/>
+                    </ProtectedRoute>
+                }/>
+                <Route path="/NBA/News" element={
+                    <ProtectedRoute>
+                        <NBANews/>
+                    </ProtectedRoute>
+                }/>
+                <Route path="/NBA/Players" element={
+                    <ProtectedRoute>
+                        <NBAPlayerList/>
+                    </ProtectedRoute>
+                }/>
+                <Route path="/NBA/Players/:playerId" element={
+                    <ProtectedRoute>
+                        <NBAPlayerData/>
+                    </ProtectedRoute>
+                }/>
             </Routes>
         </Router>
     )

@@ -2,51 +2,12 @@ import { useNavigate } from "react-router-dom";
 import statPicture from "../../assets/StatPicture.png";
 import newsPicture from "../../assets/news.png";
 import writingPicture from "../../assets/writing.png";
-import { useEffect } from "react";
 
 
 function WelcomePage(){
     const navigate = useNavigate();
-    const API_URL = import.meta.env.VITE_API_URL; 
 
     document.title = "Welcome";
-
-    useEffect(() => {
-        async function checkUserAuth(){
-            const accessToken = sessionStorage.getItem("accessToken");
-            const refreshToken = localStorage.getItem("refreshToken");
-
-            if(accessToken && refreshToken){
-                navigate("/home");
-                return;
-            }
-
-            else if(!accessToken && !refreshToken){
-                return;
-            } 
-            
-            else{
-                try{
-                    const getRefreshToken = await fetch(`${API_URL}/api/refresh`, {
-                        method : "POST",
-                        headers : {"Content-Type" : "application/json"},
-                        body : JSON.stringify({
-                            refreshToken : refreshToken
-                        })
-                    });
-                    if(!getRefreshToken.ok){
-                        return;
-                    }
-                    const data = await getRefreshToken.json();
-                    navigate("/home");
-                    return;
-                } catch (error){
-                }
-            }
-        }
-
-        checkUserAuth();
-    }, []);
 
     return(
         <>

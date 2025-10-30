@@ -6,47 +6,9 @@ function Navbar(){
     const [nflDrop, setNFLDrop] = useState(false);
     const [nbaDrop, setNBADrop] = useState(false);
     const [userDrop, setUserDrop] = useState(false);
-    const [access,setAccess] = useState("");
-    const [refresh, setRefresh] = useState("");
     const navigate = useNavigate();
 
     const API_URL = import.meta.env.VITE_API_URL; 
-
-    useEffect(() => {
-            async function checkUserAuth(){
-                const accessToken = sessionStorage.getItem("accessToken");
-                const refreshToken = localStorage.getItem("refreshToken");
-    
-                if(!accessToken && !refreshToken){
-                    navigate("/");
-                    return;
-                } 
-    
-                if(!accessToken && refreshToken){
-                    try{
-                        const getRefreshToken = await fetch(`${API_URL}/api/refresh`, {
-                            method : "POST",
-                            headers : {"Content-Type" : "application/json"},
-                            body : JSON.stringify({
-                                refreshToken : refreshToken
-                            })
-                        });
-                        if(!getRefreshToken.ok){
-                            navigate("/");
-                            return;
-                        }
-                        const data = await getRefreshToken.json();
-                        setAccess(data.accessToken);
-                        setRefresh(data.refreshToken);
-                        localStorage.setItem("refreshToken",data.refreshToken);
-                        sessionStorage.setItem("accessToken",data.accessToken);
-                    } catch (error){
-                    }
-                }
-            }
-    
-            checkUserAuth();
-        }, []);
 
     const changeNFLDrop = () => {
         setNFLDrop(prev => !prev);
@@ -64,7 +26,7 @@ function Navbar(){
 
     const logOut = async () => {
         try{
-            const token = access || sessionStorage.getItem("accessToken");
+            const token = sessionStorage.getItem("accessToken");
             const respo = await fetch(`http://localhost:8080/api/logout`,{
                 method : "POST",
                 headers : {

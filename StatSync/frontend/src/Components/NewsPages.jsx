@@ -1,61 +1,17 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 
 function NewsPages({sportName}){
-    const[access, setAccess] = useState("");
-    const[refresh,setRefresh] = useState("");
     const [sportsNews, setSportsNews] = useState([]);
     const [searchText, setSearchText] = useState("");
     const [lastSearchedText, setLastSearchedText] = useState("");
     const[currentNews, setCurrentNews] = useState([]);
-    const navigate = useNavigate();
 
     const API_URL = import.meta.env.VITE_API_URL; 
 
-
-    useEffect(() => {
-        async function checkUserAuth(){
-            const accessToken = sessionStorage.getItem("accessToken");
-            const refreshToken = localStorage.getItem("refreshToken");
-
-            if(!accessToken && !refreshToken){
-                navigate("/");
-                return;
-            } 
-
-            let accessTokenToUse = accessToken;
-            setAccess(accessTokenToUse);
-
-            if(!accessToken && refreshToken){
-                try{
-                    const getRefreshToken = await fetch(`${API_URL}/api/refresh`, {
-                        method : "POST",
-                        headers : {"Content-Type" : "application/json"},
-                        body : JSON.stringify({
-                            refreshToken : refreshToken
-                        })
-                    });
-                    if(!getRefreshToken.ok){
-                        navigate("/");
-                        return;
-                    }
-                    const data = await getRefreshToken.json();
-                    localStorage.setItem("refreshToken",data.refreshToken);
-                    sessionStorage.setItem("accessToken",data.accessToken);
-                    accessTokenToUse = data.accessToken;
-                    setAccess(accessTokenToUse);
-                    setRefresh(data.refreshToken);
-                } catch (error){
-                }
-            }
-        }
-
-        checkUserAuth();
-    }, []);
-
     useEffect(() => {
         async function loadSportsNews(){
+            const access = sessionStorage.getItem("accessToken");
             if(!access){
                 return;
             }
@@ -78,9 +34,10 @@ function NewsPages({sportName}){
             }
         }
         loadSportsNews();
-    },[access,refresh]);
+    },[]);
 
     async function getNewsOfSearchText(searchText){
+        const accessToken = sessionStorage.getItem("accessToken");
         if(searchText.length === 0){
             setCurrentNews(sportsNews);
             setLastSearchedText("");

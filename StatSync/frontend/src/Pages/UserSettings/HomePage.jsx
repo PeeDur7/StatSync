@@ -3,58 +3,23 @@ import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../Components/Navbar";
 
 function HomePage(){
-    const [access,setAccess] = useState("");
-    const [refresh,setRefresh] = useState("");
     const [username,setUsername] = useState("");
     const [nflNews, setNflNews] = useState([]);
     const [nbaNews, setNbaNews] = useState([]);
     const [nflPlayerFavorites,setNflPlayerFavorites] = useState([]);
     const [nbaPlayerFavorites,setNbaPlayerFavorites] = useState([]);
     const navigate = useNavigate();
-    const API_URL = import.meta.env.VITE_API_URL; 
+    const API_URL = import.meta.env.VITE_API_URL;
+    const access = sessionStorage.getItem("accessToken"); 
 
     useEffect(() => {
-        async function checkUserAuth(){
-            const accessToken = sessionStorage.getItem("accessToken");
-            const refreshToken = localStorage.getItem("refreshToken");
-
-            if(!accessToken && !refreshToken){
-                navigate("/");
-                return;
-            } 
-
-            let accessTokenToUse = accessToken;
-            setAccess(accessTokenToUse);
-
-            if(!accessToken && refreshToken){
-                try{
-                    const getRefreshToken = await fetch(`${API_URL}/api/refresh`, {
-                        method : "POST",
-                        headers : {"Content-Type" : "application/json"},
-                        body : JSON.stringify({
-                            refreshToken : refreshToken
-                        })
-                    });
-                    if(!getRefreshToken.ok){
-                        navigate("/");
-                        return;
-                    }
-                    const data = await getRefreshToken.json();
-                    localStorage.setItem("refreshToken",data.refreshToken);
-                    sessionStorage.setItem("accessToken",data.accessToken);
-                    accessTokenToUse = data.accessToken;
-                    setAccess(accessTokenToUse);
-                    setRefresh(data.refreshToken);
-                } catch (error){
-                }
-            }
-
+        async function getUserName(){
             try{
                 const usernameFetch = await fetch(`${API_URL}/api/home`,{
                     method : "GET",
                     headers : {
                         "Content-Type" : "application/json",
-                        "Authorization": `Bearer ${accessTokenToUse}`
+                        "Authorization": `Bearer ${access}`
                     }
                 });
                 if(!usernameFetch.ok){
@@ -68,7 +33,7 @@ function HomePage(){
 
         }
 
-        checkUserAuth();
+        getUserName();
     }, [navigate]);
 
     useEffect(() => {
@@ -162,7 +127,7 @@ function HomePage(){
         loadNBANews();
         loadNFLPlayerFavorites();
         loadNBAPlayerFavorites();
-    },[access,refresh])
+    },[access])
 
     document.title = "Home";
 
