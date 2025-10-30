@@ -13,6 +13,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -48,81 +51,110 @@ public class NFLPlayerService {
     @SuppressWarnings("unchecked")
     @Scheduled(cron = "0 0 4 ? * TUE", zone = "America/New_York")
     public void getOrUpdateNFLPlayerCurrentSeason(){
-        List<NFLPlayer> players = nflPlayerRepository.findAll();
-        List<NFLPlayer> playersListUpdated = new ArrayList<>(); 
-        List<NFLPlayer> updatedPlayerGameLogs = new ArrayList<>();
         String gameLogYear = String.valueOf(getNFLSeasonYear());
         int month = LocalDate.now().getMonthValue();
-    
-        // First loop - update team info
-        for(NFLPlayer player : players){
-            HashMap<String,Object> currentTeam = NFLPlayerId.getSeasonTeamName(player.getId(), 0);
-            HashMap<String,Object> seasonStatsMap = player.getSeasonStats();
-            String team = String.valueOf(currentTeam.get("team"));
-            String teamLogo = String.valueOf(currentTeam.get("teamLogo"));
-            
-            if(seasonStatsMap.containsKey(gameLogYear)){
-                // Only update the gamelog team info if they're in season not when out of season
-                if(month >= 9 || 
-                    (getNFLSeasonYear() < LocalDate.now().getYear() && month < 3)){
-                    HashMap<String,Object> seasonStats = (HashMap<String,Object>) seasonStatsMap.get(gameLogYear);
-                    seasonStats.put("teamLogo", teamLogo);
-                    seasonStats.put("team", team);
-                }
-            } else {
-                // Create new season entry if it doesn't exist
-                HashMap<String,Object> newSeasonStats = new HashMap<>();
-                newSeasonStats.put("teamLogo", teamLogo);
-                newSeasonStats.put("team", team);
-                seasonStatsMap.put(gameLogYear, newSeasonStats);
-            }
-            
-            player.setCurrentTeamLogoUrl(teamLogo);
-            player.setTeam(team);
-            playersListUpdated.add(player);
-        }
-    
-        // Second loop - update game logs
-        for(NFLPlayer player : playersListUpdated){
-            HashMap<String,Object> gameLog = NFLGameLog.getCurrentSeasonGameLog(player.getId());
-            HashMap<String,Object> seasonStatsMap = player.getSeasonStats();
-            
-            // Ensure season exists
-            if(!seasonStatsMap.containsKey(gameLogYear)){
-                seasonStatsMap.put(gameLogYear, new HashMap<>());
-            }
-            
-            HashMap<String,Object> seasonStats = (HashMap<String,Object>) seasonStatsMap.get(gameLogYear);
-            seasonStats.put("gameLog", gameLog.get("gameLog"));
-            updatedPlayerGameLogs.add(player);
-        }
-    
-        // Third loop - update season totals and rank
-        List<NFLPlayer> updatedPlayers = new ArrayList<>();
-        for(NFLPlayer player : updatedPlayerGameLogs){
-            HashMap<String,Object> seasonTotalsAndRank = NFLPlayerId.getSeasonStats(
-                gameLogYear, player.getId(), player.getPos());
-            HashMap<String,Object> seasonStatsMap = player.getSeasonStats();
-            
-            // Ensure season exists
-            if(!seasonStatsMap.containsKey(gameLogYear)){
-                seasonStatsMap.put(gameLogYear, new HashMap<>());
-            }
-            
-            HashMap<String,Object> seasonStats = (HashMap<String,Object>) seasonStatsMap.get(gameLogYear);
-            if(String.valueOf(seasonTotalsAndRank.get(gameLogYear)).equalsIgnoreCase("N/A")){
-                seasonStats.put("seasonTotalsAndRank", "N/A");
-            } else {
-                HashMap<String,Object> seasonTotalsAndRankExtracted = 
-                    (HashMap<String,Object>) seasonTotalsAndRank.get(gameLogYear);
-                seasonStats.put("seasonTotalsAndRank", 
-                    seasonTotalsAndRankExtracted.get("seasonTotalsAndRank"));
-            }
-            updatedPlayers.add(player);
-        }
+        int pageSize = 50;  // Process 50 players at a time
+        int pageNumber = 0;
         
-        nflPlayerRepository.saveAll(updatedPlayers);
-        System.out.println("successs!");
+        Page<NFLPlayer> page;
+        do {
+            System.out.println("Processing NFL page " + pageNumber + "...");
+            
+            // Fetch one page of players from database
+            Pageable pageable = PageRequest.of(pageNumber, pageSize);
+            page = nflPlayerRepository.findAll(pageable);
+            List<NFLPlayer> players = page.getContent();
+            
+            List<NFLPlayer> playersListUpdated = new ArrayList<>(); 
+            List<NFLPlayer> updatedPlayerGameLogs = new ArrayList<>();
+            
+            // First loop - update team info
+            for(NFLPlayer player : players){
+                HashMap<String,Object> currentTeam = NFLPlayerId.getSeasonTeamName(player.getId(), 0);
+                HashMap<String,Object> seasonStatsMap = player.getSeasonStats();
+                String team = String.valueOf(currentTeam.get("team"));
+                String teamLogo = String.valueOf(currentTeam.get("teamLogo"));
+                
+                if(seasonStatsMap.containsKey(gameLogYear)){
+                    // Only update the gamelog team info if they're in season not when out of season
+                    if(month >= 9 || 
+                        (getNFLSeasonYear() < LocalDate.now().getYear() && month < 3)){
+                        HashMap<String,Object> seasonStats = (HashMap<String,Object>) seasonStatsMap.get(gameLogYear);
+                        seasonStats.put("teamLogo", teamLogo);
+                        seasonStats.put("team", team);
+                    }
+                } else {
+                    // Create new season entry if it doesn't exist
+                    HashMap<String,Object> newSeasonStats = new HashMap<>();
+                    newSeasonStats.put("teamLogo", teamLogo);
+                    newSeasonStats.put("team", team);
+                    seasonStatsMap.put(gameLogYear, newSeasonStats);
+                }
+                
+                player.setCurrentTeamLogoUrl(teamLogo);
+                player.setTeam(team);
+                playersListUpdated.add(player);
+            }
+        
+            // Second loop - update game logs
+            for(NFLPlayer player : playersListUpdated){
+                HashMap<String,Object> gameLog = NFLGameLog.getCurrentSeasonGameLog(player.getId());
+                HashMap<String,Object> seasonStatsMap = player.getSeasonStats();
+                
+                // Ensure season exists
+                if(!seasonStatsMap.containsKey(gameLogYear)){
+                    seasonStatsMap.put(gameLogYear, new HashMap<>());
+                }
+                
+                HashMap<String,Object> seasonStats = (HashMap<String,Object>) seasonStatsMap.get(gameLogYear);
+                seasonStats.put("gameLog", gameLog.get("gameLog"));
+                updatedPlayerGameLogs.add(player);
+            }
+        
+            // Third loop - update season totals and rank
+            List<NFLPlayer> updatedPlayers = new ArrayList<>();
+            for(NFLPlayer player : updatedPlayerGameLogs){
+                HashMap<String,Object> seasonTotalsAndRank = NFLPlayerId.getSeasonStats(
+                    gameLogYear, player.getId(), player.getPos());
+                HashMap<String,Object> seasonStatsMap = player.getSeasonStats();
+                
+                // Ensure season exists
+                if(!seasonStatsMap.containsKey(gameLogYear)){
+                    seasonStatsMap.put(gameLogYear, new HashMap<>());
+                }
+                
+                HashMap<String,Object> seasonStats = (HashMap<String,Object>) seasonStatsMap.get(gameLogYear);
+                if(String.valueOf(seasonTotalsAndRank.get(gameLogYear)).equalsIgnoreCase("N/A")){
+                    seasonStats.put("seasonTotalsAndRank", "N/A");
+                } else {
+                    HashMap<String,Object> seasonTotalsAndRankExtracted = 
+                        (HashMap<String,Object>) seasonTotalsAndRank.get(gameLogYear);
+                    seasonStats.put("seasonTotalsAndRank", 
+                        seasonTotalsAndRankExtracted.get("seasonTotalsAndRank"));
+                }
+                updatedPlayers.add(player);
+            }
+            
+            // Save this page's batch
+            nflPlayerRepository.saveAll(updatedPlayers);
+            System.out.println("Saved " + updatedPlayers.size() + " NFL players from page " + pageNumber);
+            
+            // Wait between pages to avoid overwhelming external APIs
+            if(page.hasNext()){
+                try {
+                    System.out.println("Waiting 30 seconds before next page...");
+                    Thread.sleep(30000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    System.err.println("Update interrupted!");
+                    break;
+                }
+            }
+            
+            pageNumber++;
+        } while(page.hasNext());
+        
+        System.out.println("NFL Update Complete! Processed " + pageNumber + " pages.");
     }
 
     public List<NFLPlayer> getPlayers(){

@@ -11,6 +11,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -46,97 +49,123 @@ public class NBAPlayerService {
     @SuppressWarnings("unchecked")
     @Scheduled(cron = "0 0 2 * * ?", zone = "America/New_York") //2 am everyday
     public void getOrUpdateNBAPlayerCurrentSeason(){
-        List<NBAPlayer> players = nbaPlayerRepository.findAll();
         String gameLogYear = String.valueOf(getNBASeasonYear());
         int month = LocalDate.now().getMonthValue();
-        int batchSize = 20;
+        int pageSize = 50;  // Process 50 players at a time
+        int batchSize = 20;  // Keep your original batch processing within each page
+        int pageNumber = 0;
         
-        
-        // Process in batches
-        for(int i = 0; i < players.size(); i += batchSize){
-            int end = Math.min(i + batchSize, players.size());
-            List<NBAPlayer> batch = players.subList(i, end);
+        Page<NBAPlayer> page;
+        do {
+            System.out.println("Processing NBA page " + pageNumber + "...");
             
-            List<NBAPlayer> playersUpdatedList = new ArrayList<>();
-            List<NBAPlayer> playersUpdatedGameLogs = new ArrayList<>();
+            // Fetch one page of players from database
+            Pageable pageable = PageRequest.of(pageNumber, pageSize);
+            page = nbaPlayerRepository.findAll(pageable);
+            List<NBAPlayer> players = page.getContent();
             
-            // First loop - update team info (O(batchSize))
-            for(NBAPlayer player : batch){
-                HashMap<String,Object> currentTeam = NBAPlayerInfo.getSeasonTeam(player.getId(), 0);
-                HashMap<String,Object> seasonStatsMap = (HashMap<String,Object>) player.getStats();
-                String team = String.valueOf(currentTeam.get("team"));
-                String teamLogo = String.valueOf(currentTeam.get("teamLogo"));
+            // Process this page in batches (your original batching logic)
+            for(int i = 0; i < players.size(); i += batchSize){
+                int end = Math.min(i + batchSize, players.size());
+                List<NBAPlayer> batch = players.subList(i, end);
                 
-                if(seasonStatsMap.containsKey(gameLogYear)){
-                    if(month >= 10 || 
-                        (getNBASeasonYear() < LocalDate.now().getYear() && month < 7)){
-                        HashMap<String,Object> seasonStats = (HashMap<String,Object>) seasonStatsMap.get(gameLogYear);
-                        seasonStats.put("team", team);
-                        seasonStats.put("teamLogo", teamLogo);
+                List<NBAPlayer> playersUpdatedList = new ArrayList<>();
+                List<NBAPlayer> playersUpdatedGameLogs = new ArrayList<>();
+                
+                // First loop - update team info (O(batchSize))
+                for(NBAPlayer player : batch){
+                    HashMap<String,Object> currentTeam = NBAPlayerInfo.getSeasonTeam(player.getId(), 0);
+                    HashMap<String,Object> seasonStatsMap = (HashMap<String,Object>) player.getStats();
+                    String team = String.valueOf(currentTeam.get("team"));
+                    String teamLogo = String.valueOf(currentTeam.get("teamLogo"));
+                    
+                    if(seasonStatsMap.containsKey(gameLogYear)){
+                        if(month >= 10 || 
+                            (getNBASeasonYear() < LocalDate.now().getYear() && month < 7)){
+                            HashMap<String,Object> seasonStats = (HashMap<String,Object>) seasonStatsMap.get(gameLogYear);
+                            seasonStats.put("team", team);
+                            seasonStats.put("teamLogo", teamLogo);
+                        }
+                    } else {
+                        HashMap<String,Object> newSeasonStats = new HashMap<>();
+                        newSeasonStats.put("team", team);
+                        newSeasonStats.put("teamLogo", teamLogo);
+                        seasonStatsMap.put(gameLogYear, newSeasonStats);
                     }
-                } else {
-                    HashMap<String,Object> newSeasonStats = new HashMap<>();
-                    newSeasonStats.put("team", team);
-                    newSeasonStats.put("teamLogo", teamLogo);
-                    seasonStatsMap.put(gameLogYear, newSeasonStats);
+                    
+                    player.setTeam(team);
+                    player.setCurrentTeamLogo(teamLogo);
+                    playersUpdatedList.add(player);
+                }
+            
+                // Second loop - update game logs (O(batchSize))
+                for(NBAPlayer player : playersUpdatedList){
+                    HashMap<String,Object> gameLog = NBAGameLog.getCurrentSeasonGameLog(player.getId());
+                    HashMap<String,Object> seasonStatsMap = (HashMap<String,Object>) player.getStats();
+                    
+                    if(!seasonStatsMap.containsKey(gameLogYear)){
+                        seasonStatsMap.put(gameLogYear, new HashMap<>());
+                    }
+                    
+                    HashMap<String,Object> seasonStats = (HashMap<String,Object>) seasonStatsMap.get(gameLogYear);
+                    seasonStats.put("gameLog", gameLog.get("gameLog"));
+                    playersUpdatedGameLogs.add(player);
+                }
+            
+                // Third loop - update season totals (O(batchSize))
+                List<NBAPlayer> updatedPlayers = new ArrayList<>();
+                for(NBAPlayer player : playersUpdatedGameLogs){
+                    HashMap<String,Object> seasonTotalsAndRank = NBAPlayerInfo.getSeasonStats(gameLogYear, player.getId());
+                    HashMap<String,Object> seasonStatsMap = (HashMap<String,Object>) player.getStats();
+                    
+                    if(!seasonStatsMap.containsKey(gameLogYear)){
+                        seasonStatsMap.put(gameLogYear, new HashMap<>());
+                    }
+                    
+                    HashMap<String,Object> seasonStats = (HashMap<String,Object>) seasonStatsMap.get(gameLogYear);
+                    if(String.valueOf(seasonTotalsAndRank.get(gameLogYear)).equalsIgnoreCase("N/A")){
+                        seasonStats.put("seasonTotalsAndRank", "N/A");
+                    } else {
+                        HashMap<String,Object> seasonTotalsAndRankExtracted = 
+                            (HashMap<String,Object>) seasonTotalsAndRank.get(gameLogYear);
+                        seasonStats.put("seasonTotalsAndRank", 
+                            seasonTotalsAndRankExtracted.get("seasonTotalsAndRank"));
+                    }
+                    updatedPlayers.add(player);
                 }
                 
-                player.setTeam(team);
-                player.setCurrentTeamLogo(teamLogo);
-                playersUpdatedList.add(player);
-            }
-        
-            // Second loop - update game logs (O(batchSize))
-            for(NBAPlayer player : playersUpdatedList){
-                HashMap<String,Object> gameLog = NBAGameLog.getCurrentSeasonGameLog(player.getId());
-                HashMap<String,Object> seasonStatsMap = (HashMap<String,Object>) player.getStats();
+                // Save this batch
+                nbaPlayerRepository.saveAll(updatedPlayers);
+                System.out.println("Saved batch of " + updatedPlayers.size() + " NBA players");
                 
-                if(!seasonStatsMap.containsKey(gameLogYear)){
-                    seasonStatsMap.put(gameLogYear, new HashMap<>());
+                // Wait between batches within the page
+                if(end < players.size()){
+                    try {
+                        System.out.println("Waiting 30 seconds before next batch...");
+                        Thread.sleep(30000);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        break;
+                    }
                 }
-                
-                HashMap<String,Object> seasonStats = (HashMap<String,Object>) seasonStatsMap.get(gameLogYear);
-                seasonStats.put("gameLog", gameLog.get("gameLog"));
-                playersUpdatedGameLogs.add(player);
-            }
-        
-            // Third loop - update season totals (O(batchSize))
-            List<NBAPlayer> updatedPlayers = new ArrayList<>();
-            for(NBAPlayer player : playersUpdatedGameLogs){
-                HashMap<String,Object> seasonTotalsAndRank = NBAPlayerInfo.getSeasonStats(gameLogYear, player.getId());
-                HashMap<String,Object> seasonStatsMap = (HashMap<String,Object>) player.getStats();
-                
-                if(!seasonStatsMap.containsKey(gameLogYear)){
-                    seasonStatsMap.put(gameLogYear, new HashMap<>());
-                }
-                
-                HashMap<String,Object> seasonStats = (HashMap<String,Object>) seasonStatsMap.get(gameLogYear);
-                if(String.valueOf(seasonTotalsAndRank.get(gameLogYear)).equalsIgnoreCase("N/A")){
-                    seasonStats.put("seasonTotalsAndRank", "N/A");
-                } else {
-                    HashMap<String,Object> seasonTotalsAndRankExtracted = 
-                        (HashMap<String,Object>) seasonTotalsAndRank.get(gameLogYear);
-                    seasonStats.put("seasonTotalsAndRank", 
-                        seasonTotalsAndRankExtracted.get("seasonTotalsAndRank"));
-                }
-                updatedPlayers.add(player);
             }
             
-            nbaPlayerRepository.saveAll(updatedPlayers);
-            
-            // Wait between batches
-            if(end < players.size()){
+            // Wait between pages
+            if(page.hasNext()){
                 try {
-                    System.out.println("Waiting 30 seconds...");
+                    System.out.println("Waiting 30 seconds before next page...");
                     Thread.sleep(30000);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
+                    System.err.println("Update interrupted!");
                     break;
                 }
             }
-        }
+            
+            pageNumber++;
+        } while(page.hasNext());
         
-        System.out.println("Success!");
+        System.out.println("NBA Update Complete! Processed " + pageNumber + " pages.");
     }
 
     public List<NBAPlayer> getNBAPlayers(){
