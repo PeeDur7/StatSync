@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Random;
 
-import javax.management.RuntimeErrorException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,6 +22,7 @@ import com.peter.Sports.backend.DTO.VerifyForgotPassword;
 import com.peter.Sports.backend.Model.Users;
 import com.peter.Sports.backend.Repository.UsersRepository;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 
@@ -78,22 +77,30 @@ public class AuthenticationService {
     }
 
     public AuthResponse refresh(RefreshTokenRequest request){
-        String refreshToken = request.getRefreshToken();
-        if (jwtService.isTokenExpired(refreshToken)){
-            throw new RuntimeErrorException(null,"Refresh Token is Expired");
-        }
+            String refreshToken = request.getRefreshToken();
+    try {
         String name = jwtService.extractName(refreshToken);
-        String newAccessToken = jwtService.generateToken(name);
-        String newRefreshToken = jwtService.generateRefreshToken(name);
-
+        
         Users user = usersRepository.findByName(name)
-        .orElseThrow(() -> new RuntimeException("User not found")); 
+            .orElseThrow(() -> new RuntimeException("User not found")); 
+        
         if (!refreshToken.equals(user.getRefreshToken())) {
             throw new RuntimeException("Invalid refresh token");
-        }        
+        }
+        
+        String newAccessToken = jwtService.generateToken(name);
+        String newRefreshToken = jwtService.generateRefreshToken(name);
+        
         user.setRefreshToken(newRefreshToken);
         usersRepository.save(user);
+        
         return new AuthResponse(newAccessToken, newRefreshToken);
+        
+    } catch (ExpiredJwtException e) {
+        throw new RuntimeException("Refresh token is expired");
+    } catch (Exception e) {
+        throw new RuntimeException("Invalid refresh token");
+    }
     }
 
     public ResponseEntity<?> logout(String token){

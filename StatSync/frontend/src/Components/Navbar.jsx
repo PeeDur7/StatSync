@@ -47,7 +47,7 @@ function Navbar(){
     return(
         <div className="navbar">
             <nav>
-                <a href="/">Home</a>
+                <a href="/home">Home</a>
                 <div className="NFLNav">
                     <button onClick={changeNFLDrop} className={`NFLDrop ${nflDrop ? "active" : ""}`}>NFL</button>
                     {nflDrop && 

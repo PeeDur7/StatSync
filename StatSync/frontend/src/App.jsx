@@ -13,18 +13,43 @@ import NBANews from "./Pages/NBAPlayers/NBANews";
 import NBAPlayerList from "./Pages/NBAPlayers/NBAPlayerList";
 import NBAPlayerData from "./Pages/NBAPlayers/NBAPlayerData";
 import ProtectedRoute from "./Pages/UserSettings/ProtectedRoute";
+import PublicRoute from "./Pages/UserSettings/PublicRoute";
 
 function App() {
 
     return(
         <Router>
             <Routes>
-                <Route path="/" element={<WelcomePage/>}/>
-                <Route path="/login" element={<LoginPage/>}/>
-                <Route path="/registration" element={<RegistrationPage/>}/>
-                <Route path="/forgotPassword" element={<ForgotPasswordPage/>}/>
-                <Route path="/verifyCode" element={<ConfirmVerificationCode/>}/>
-                <Route path="/createNewPassword" element={<SubmitForgotPassword/>}/>
+            <Route path="/" element={
+                    <PublicRoute>
+                        <WelcomePage/>
+                    </PublicRoute>
+                }/>
+                <Route path="/login" element={
+                    <PublicRoute>
+                        <LoginPage/>
+                    </PublicRoute>
+                }/>
+                <Route path="/registration" element={
+                    <PublicRoute>
+                        <RegistrationPage/>
+                    </PublicRoute>
+                }/>
+                <Route path="/forgotPassword" element={
+                    <PublicRoute>
+                        <ForgotPasswordPage/>
+                    </PublicRoute>
+                }/>
+                <Route path="/verifyCode" element={
+                    <PublicRoute>
+                        <ConfirmVerificationCode/>
+                    </PublicRoute>
+                }/>
+                <Route path="/createNewPassword" element={
+                    <PublicRoute>
+                        <SubmitForgotPassword/>
+                    </PublicRoute>
+                }/>
                 
                 <Route path="/home" element={
                     <ProtectedRoute>
