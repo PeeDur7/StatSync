@@ -140,23 +140,23 @@ public class NBAPlayerService {
     }
 
     public List<NBAPlayer> getNBAPlayers(){
-        return nbaPlayerRepository.findAll();
+        return nbaPlayerRepository.findTop100By();
     }
     
     public List<NBAPlayer> getNBAPlayerByName(String name){
-        return nbaPlayerRepository.findByNameIgnoreCase(name);
+        return nbaPlayerRepository.findTop100ByNameIgnoreCase(name);
     }
 
     public List<NBAPlayer> getNBAPlayerByTeam(String team){
-        return nbaPlayerRepository.findByTeam(team);
+        return nbaPlayerRepository.findTop100ByTeam(team);
     }
 
     public List<NBAPlayer> getNBAPlayerByPos(String pos){
-        return nbaPlayerRepository.findByPos(pos);
+        return nbaPlayerRepository.findTop100ByPos(pos);
     }
 
     public List<NBAPlayer> getNBAPlayerByTeamAndPos(String team, String pos){
-        return nbaPlayerRepository.findByTeamAndPos(team, pos);
+        return nbaPlayerRepository.findTop100ByTeamAndPos(team, pos);
     }
 
     public NBAPlayer getNBAPlayerData(String id){

@@ -11,8 +11,9 @@ import com.peter.Sports.backend.Model.NFLPlayer;
 
 @Repository
 public interface NFLPlayerRepository extends MongoRepository<NFLPlayer,String>{
-    List<NFLPlayer> findByNameIgnoreCase(String name);
-    List<NFLPlayer> findByTeam(String team);
-    List<NFLPlayer> findByPos(String pos);
-    List<NFLPlayer> findByTeamAndPos(String team, String pos);
+    List<NFLPlayer> findTop100ByNameIgnoreCase(String name);
+    List<NFLPlayer> findTop100ByTeam(String team);
+    List<NFLPlayer> findTop100ByPos(String pos);
+    List<NFLPlayer> findTop100ByTeamAndPos(String team, String pos);
+    List<NFLPlayer> findTop100By();
 }
