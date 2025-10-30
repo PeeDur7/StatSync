@@ -27,7 +27,7 @@ function Navbar(){
     const logOut = async () => {
         try{
             const token = sessionStorage.getItem("accessToken");
-            const respo = await fetch(`http://localhost:8080/api/logout`,{
+            const respo = await fetch(`${API_URL}/api/logout`,{
                 method : "POST",
                 headers : {
                     "Content-Type": "application/json", 

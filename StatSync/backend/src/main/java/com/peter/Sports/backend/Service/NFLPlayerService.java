@@ -126,19 +126,19 @@ public class NFLPlayerService {
     }
 
     public List<NFLPlayer> getPlayers(){
-       return nflPlayerRepository.findTop100By();
+       return nflPlayerRepository.findTop50By();
     }
 
     public List<NFLPlayer> getPlayerName(String name){
-        return nflPlayerRepository.findTop100ByNameIgnoreCase(name);
+        return nflPlayerRepository.findTop50ByNameIgnoreCase(name);
     }
 
     public List<NFLPlayer> getTeamPlayers(String teamName){
-        return nflPlayerRepository.findTop100ByTeam(teamName);
+        return nflPlayerRepository.findTop50ByTeam(teamName);
     }
 
     public List<NFLPlayer> getPosition(String position) {
-        List<NFLPlayer> playerList = nflPlayerRepository.findTop100ByPos(position);
+        List<NFLPlayer> playerList = nflPlayerRepository.findTop50ByPos(position);
         List<String> orderList = orderPlayersByPosition(position).stream()
         .map(String::toLowerCase)
         .collect(Collectors.toList());
@@ -152,7 +152,7 @@ public class NFLPlayerService {
     }
     
     public List<NFLPlayer> getTeamAndPosition(String team, String position){
-        return nflPlayerRepository.findTop100ByTeamAndPos(team, position);
+        return nflPlayerRepository.findTop50ByTeamAndPos(team, position);
     }
 
     public ResponseEntity<?> favoriteNFLPlayer(String id,String name){
