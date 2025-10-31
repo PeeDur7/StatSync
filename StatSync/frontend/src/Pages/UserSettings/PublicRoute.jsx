@@ -9,7 +9,7 @@ function PublicRoute({ children }) {
 
     useEffect(() => {
         async function verifyAuth() {
-            const accessToken = sessionStorage.getItem("accessToken");
+            const accessToken = localStorage.getItem("accessToken");
             const refreshToken = localStorage.getItem("refreshToken");
 
             // Both tokens present - user is authenticated, redirect to home
@@ -36,19 +36,20 @@ function PublicRoute({ children }) {
                     
                     if (response.ok) {
                         const data = await response.json();
-                        sessionStorage.setItem("accessToken", data.accessToken);
+                        localStorage.setItem("accessToken", data.accessToken);
+                        localStorage.setItem("refreshToken", data.refreshToken);
                         // User is authenticated, redirect to home
                         navigate("/home");
                         return;
                     } else {
                         // Refresh token also invalid - clear and allow access
                         localStorage.removeItem("refreshToken");
-                        sessionStorage.removeItem("accessToken");
+                        localStorage.removeItem("accessToken");
                         setIsAuthenticated(false);
                     }
                 } catch (error) {
                     localStorage.removeItem("refreshToken");
-                    sessionStorage.removeItem("accessToken");
+                    localStorage.removeItem("accessToken");
                     setIsAuthenticated(false);
                 }
             }

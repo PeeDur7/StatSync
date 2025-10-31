@@ -40,8 +40,8 @@ function LoginPage(){
                 return;
             }
             const data = await response.json();
-            localStorage.setItem("refreshToken",data.refreshToken);
-            sessionStorage.setItem("accessToken",data.accessToken);
+            localStorage.setItem("accessToken", data.accessToken);
+            localStorage.setItem("refreshToken", data.refreshToken);
 
             navigate("/home");
             return;
