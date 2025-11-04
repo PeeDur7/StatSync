@@ -173,7 +173,7 @@ public class NBAPlayerService {
     }
     
     public List<NBAPlayer> getNBAPlayerByName(String name){
-        return nbaPlayerRepository.findTop50ByNameIgnoreCase(name);
+        return nbaPlayerRepository.findTop50ByNameContainingIgnoreCase(name);
     }
 
     public List<NBAPlayer> getNBAPlayerByTeam(String team){
@@ -271,7 +271,7 @@ public class NBAPlayerService {
             return Collections.emptyList();
         }
         return nbaPlayerFavorites.stream()
-                .filter(player -> player.getName().equalsIgnoreCase(playerName))
+                .filter(player -> player.getName().toLowerCase().contains(playerName.toLowerCase()))
                 .collect(Collectors.toList());
     }
 

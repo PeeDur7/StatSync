@@ -170,6 +170,17 @@ function PlayerLists({sportName}){
     }
 
     async function loadPlayerByName(playerName){
+
+        if (!playerName || playerName.trim() === "") {
+            if (searchCategory === "Filter" && selectedPosition === "All") {
+                setPlayers(dbPlayers);
+                setError("");
+            } else {
+                loadPlayerBySelectedPosition();
+            }
+            return;
+        }
+
         if(searchCategory === "Filter"){
             try{
                 const playerResponse = await fetch(`${API_URL}/${sportName}/players/player/name?name=${playerName}`,{
@@ -187,10 +198,18 @@ function PlayerLists({sportName}){
                 }
     
                 const playerData = await playerResponse.json();
-                setPlayers(playerData);
-                if(playerData && playerData.length > 0){
-                    setSelectedPosition("All");
+                let filteredPlayers = playerData;
+                if(selectedPosition !== "All") {
+                    filteredPlayers = playerData.filter(p => p.pos === selectedPosition);
                 }
+                
+                if(filteredPlayers.length === 0){
+                    setError(`No ${selectedPosition === "All" ? "" : selectedPosition + " "}players found matching "${playerName}"`);
+                    setPlayers([]);
+                    return;
+                }
+                
+                setPlayers(filteredPlayers);
                 setError("");
             } catch(error){
             }
@@ -209,10 +228,18 @@ function PlayerLists({sportName}){
                     return;
                 }
                 const players = await playerResponse.json();
-                setPlayers(players);
-                if(players && players.length > 0){
-                    setSelectedPosition(players[0].pos);
+                let filteredPlayers = playerData;
+                if(selectedPosition !== "All") {
+                    filteredPlayers = playerData.filter(p => p.pos === selectedPosition);
                 }
+                
+                if(filteredPlayers.length === 0){
+                    setError(`No ${selectedPosition === "All" ? "" : selectedPosition + " "}players found matching "${playerName}"`);
+                    setPlayers([]);
+                    return;
+                }
+                
+                setPlayers(filteredPlayers);
                 setError("");
             } catch(error){
             }
