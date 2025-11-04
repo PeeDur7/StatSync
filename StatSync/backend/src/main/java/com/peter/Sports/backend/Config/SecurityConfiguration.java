@@ -46,7 +46,7 @@ public class SecurityConfiguration {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable()) 
                 .authorizeHttpRequests(registry -> {
-                    registry.requestMatchers("/api/**").permitAll();
+                    registry.requestMatchers("/api/**","/health").permitAll();
                     registry.requestMatchers("/user/**").hasRole("USER"); 
                     registry.anyRequest().authenticated();
                 })
