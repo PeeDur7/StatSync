@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Navbar from "../../Components/Navbar";
 import { User } from "lucide-react";
 
 function NBAPlayerData() {
   const { playerId } = useParams();
-  const navigate = useNavigate();
   const [player, setPlayer] = useState(null);
-  const [refreshToken, setRefresh] = useState("");
   const [gameLogs, setGameLogs] = useState({});
   const [seasonStats, setSeasonStats] = useState({});
   const [removeButton, setRemoveButton] = useState(false);
@@ -16,14 +14,6 @@ function NBAPlayerData() {
   const accessToken = sessionStorage.getItem("accessToken");
 
   const API_URL = import.meta.env.VITE_API_URL; 
-
-  const nbaTeams = [
-    "Hawks", "Celtics", "Nets", "Hornets", "Bulls", "Cavaliers", "Mavericks",
-    "Nuggets", "Pistons", "Warriors", "Rockets", "Pacers", "Clippers", "Lakers",
-    "Grizzlies", "Heat", "Bucks", "Timberwolves", "Pelicans", "Knicks", "Thunder",
-    "Magic", "76ers", "Suns", "Trail Blazers", "Kings", "Spurs", "Raptors", "Jazz",
-    "Wizards"
-  ];
 
   // Helper functions for formatting
   const formatStat = (value) => {

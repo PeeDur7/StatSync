@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Navbar from "../../Components/Navbar";
 import { User } from "lucide-react";
 
 function NFLPlayerData() {
   const { playerId } = useParams();
-  const navigate = useNavigate();
   const [player, setPlayer] = useState(null);
   const [gameLogs, setGameLogs] = useState({});
   const [seasonStats, setSeasonStats] = useState({});
@@ -15,15 +14,6 @@ function NFLPlayerData() {
   const accessToken = sessionStorage.getItem("accessToken");
 
   const API_URL = import.meta.env.VITE_API_URL; 
-
-
-  const nflTeams = [
-    "Cardinals", "Falcons", "Ravens", "Bills", "Panthers", "Bears", "Bengals", 
-    "Browns", "Cowboys", "Broncos", "Lions", "Packers", "Texans", "Colts", 
-    "Jaguars", "Chiefs", "Raiders", "Chargers", "Rams", "Dolphins", "Vikings", 
-    "Patriots", "Saints", "Giants", "Jets", "Eagles", "Steelers", "49ers", 
-    "Seahawks", "Buccaneers", "Titans", "Commanders"
-  ];
 
   // Helper functions for formatting
   const formatStat = (value) => {
