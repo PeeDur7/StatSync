@@ -9,7 +9,7 @@ function PublicRoute({ children }) {
 
     useEffect(() => {
         async function verifyAuth() {
-            const accessToken = localStorage.getItem("accessToken");
+            const accessToken = sessionStorage.getItem("accessToken");
             const refreshToken = localStorage.getItem("refreshToken");
 
             // Both tokens present - user is authenticated, redirect to home

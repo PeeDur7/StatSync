@@ -2,12 +2,15 @@ import { useNavigate } from "react-router-dom";
 import statPicture from "../../assets/StatPicture.png";
 import newsPicture from "../../assets/news.png";
 import writingPicture from "../../assets/writing.png";
+import { useEffect } from "react";
 
 
 function WelcomePage(){
     const navigate = useNavigate();
 
-    document.title = "Welcome";
+    useEffect(() => {
+        document.title = "Welcome";
+    }, []); 
 
     return(
         <>

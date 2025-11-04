@@ -1,4 +1,4 @@
-import { useState} from "react";
+import { useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import PasswordText from "../../Components/PasswordText";
 
@@ -55,7 +55,9 @@ function RegistrationPage(){
         }
     }
 
-    document.title = "Registration";
+    useEffect(() => {
+        document.title = "Registration";
+    },[]);
 
     return(
         <>  

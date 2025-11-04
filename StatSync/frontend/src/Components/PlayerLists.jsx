@@ -18,6 +18,10 @@ function PlayerLists({sportName}){
     const access = sessionStorage.getItem("accessToken");
 
     useEffect(() => {
+        document.title = `${sportName.toUpperCase()} Players`;
+    },[sportName]);
+
+    useEffect(() => {
         async function loadAllPlayers(){
             if(!access){
                 return;
@@ -43,7 +47,7 @@ function PlayerLists({sportName}){
             }
         }
         loadAllPlayers();
-    },[access]);
+    },[access,API_URL,sportName]);
 
     async function loadPlayerBySelectedPosition(){
         if(selectedPosition === "All" && searchCategory === "Filter"){
@@ -207,15 +211,13 @@ function PlayerLists({sportName}){
                 const players = await playerResponse.json();
                 setPlayers(players);
                 if(players && players.length > 0){
-                    setSelectedPosition(player[0].pos);
+                    setSelectedPosition(players[0].pos);
                 }
                 setError("");
             } catch(error){
             }
         }
     }
-
-    document.title = `${sportName.toUpperCase()} Players`;
 
     return(
         <div className = "playerListPage">

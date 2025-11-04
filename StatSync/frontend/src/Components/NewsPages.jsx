@@ -34,6 +34,7 @@ function NewsPages({sportName}){
             }
         }
         loadSportsNews();
+        document.title = `${sportName.toUpperCase()} News`
     },[]);
 
     async function getNewsOfSearchText(searchText){
@@ -61,8 +62,6 @@ function NewsPages({sportName}){
         } catch(error){
         }
     }
-
-    document.title = `${sportName.toUpperCase()} News`
 
     return(
         <div className="NewsPage">

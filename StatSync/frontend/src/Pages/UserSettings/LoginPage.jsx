@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import PasswordText from "../../Components/PasswordText";
 
@@ -20,8 +20,6 @@ function LoginPage(){
         setPassword(e.target.value);
     }
 
-    document.title = "Login";
-
     //checks if idenfitifer and password matches the database info
     async function checkAuthenticationAndSaveToken(e){
         e.preventDefault();
@@ -40,7 +38,7 @@ function LoginPage(){
                 return;
             }
             const data = await response.json();
-            localStorage.setItem("accessToken", data.accessToken);
+            sessionStorage.setItem("accessToken", data.accessToken);
             localStorage.setItem("refreshToken", data.refreshToken);
 
             navigate("/home");
@@ -48,6 +46,10 @@ function LoginPage(){
         } catch (error){
         }
     }
+
+    useEffect(() => {
+        document.title = "Login";
+    }, []);
     const passwordType = showPassword ? "text" : "password";
     return(
         <>
@@ -64,7 +66,7 @@ function LoginPage(){
                     <div className = "loginInputTexts">
                         <form onSubmit = {checkAuthenticationAndSaveToken}>
                             <h4>Username/Email</h4>
-                            <input type="text" value = {user} onChange={(setUserInfo)} placeholder="Enter Username or Email"/>
+                            <input type="text" value = {user} onChange={setUserInfo} placeholder="Enter Username or Email"/>
                             <br></br>
                             <PasswordText
                                 password={password}

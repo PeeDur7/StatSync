@@ -45,8 +45,10 @@ function ConfirmVerificationCode(){
         }
     }
 
-    document.title = "Confirmation Code";
-
+    useEffect(() => {
+        document.title = "Confirmation Code";
+    }, []);
+    
     return(
         <>
             <div className="confirmationCodeContainer">

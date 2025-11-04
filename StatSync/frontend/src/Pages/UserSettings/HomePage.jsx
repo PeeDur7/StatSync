@@ -10,127 +10,108 @@ function HomePage(){
     const [nbaPlayerFavorites,setNbaPlayerFavorites] = useState([]);
     const navigate = useNavigate();
     const API_URL = import.meta.env.VITE_API_URL;
-    const access = sessionStorage.getItem("accessToken"); 
 
     useEffect(() => {
-        async function getUserName(){
-            try{
-                const usernameFetch = await fetch(`${API_URL}/api/home`,{
-                    method : "GET",
-                    headers : {
-                        "Content-Type" : "application/json",
+        const access = sessionStorage.getItem("accessToken");
+        if(!access) return;
+    
+        const loadNFLNews = async () => {
+            try {
+                const response = await fetch(`${API_URL}/nfl/news`, {
+                    headers: {
+                        "Content-Type": "application/json",
                         "Authorization": `Bearer ${access}`
                     }
                 });
-                if(!usernameFetch.ok){
+                if(response.ok) {
+                    const data = await response.json();
+                    setNflNews(data);
+                }
+            } catch(error) {
+            }
+        };
+    
+        const loadNBANews = async () => {
+            try {
+                const response = await fetch(`${API_URL}/nba/news`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${access}`
+                    }
+                });
+                if(response.ok) {
+                    const data = await response.json();
+                    setNbaNews(data);
+                }
+            } catch(error) {
+            }
+        };
+        
+        const loadNFLPlayerFavorites = async () => {
+            try {
+                const response = await fetch(`${API_URL}/user/nflPlayers/favorite`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${access}`
+                    }
+                });
+                if(response.ok) {
+                    const data = await response.json();
+                    setNflPlayerFavorites(data);
+                }
+            } catch(error) {
+            }
+        };
+        
+        const loadNBAPlayerFavorites = async () => {
+            try {
+                const response = await fetch(`${API_URL}/user/nbaPlayers/favorite`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${access}`
+                    }
+                });
+                if(response.ok) {
+                    const data = await response.json();
+                    setNbaPlayerFavorites(data);
+                }
+            } catch(error) {
+            }
+        };
+        
+        const getUserName = async () => {
+            try {
+                const response = await fetch(`${API_URL}/api/home`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${access}`
+                    }
+                });
+                if(!response.ok) {
                     navigate("/");
                     return;
                 }
-                const usernameData = await usernameFetch.text();
-                setUsername(usernameData);
-            } catch(error){
+                const username = await response.text();
+                setUsername(username);
+            } catch(error) {
             }
-
-        }
-
-        getUserName();
-    }, [navigate]);
+        };
+    
+        Promise.all([
+            loadNFLNews(),
+            loadNBANews(),
+            loadNFLPlayerFavorites(),
+            loadNBAPlayerFavorites(),
+            getUserName()
+        ]);
+    
+    }, [navigate, API_URL]);
 
     useEffect(() => {
-        if(!access) return;
-        async function loadNFLNews(){
-            try{
-                const nflNewsResponse = await fetch(`${API_URL}/nfl/news`,{
-                    method : "GET",
-                    headers : {
-                        "Content-Type" : "application/json",
-                        "Authorization": `Bearer ${access}`
-                    }
-                });
-
-                if(!nflNewsResponse.ok){
-                    return;
-                }
-                const nflNews = await nflNewsResponse.json();
-                setNflNews(nflNews);
-            } catch(error){
-            }
-        }
-
-        async function loadNBANews(){
-            try{
-                const nbaNewsResponse = await fetch(`${API_URL}/nba/news`,{
-                    method : "GET",
-                    headers : {
-                        "Content-Type" : "application/json",
-                        "Authorization": `Bearer ${access}`
-                    }
-                });
-                if(!nbaNewsResponse.ok){
-                    return;
-                }
-                const nbaNews = await nbaNewsResponse.json();
-                setNbaNews(nbaNews);
-            } catch(error){
-            }
-        }
-
-        async function loadNFLPlayerFavorites(){
-            if(!access){
-                return;
-            }
-            try{
-                const nflFavoriteResponse = await 
-                    fetch(`${API_URL}/user/nflPlayers/favorite`,{
-                        method : "POST",
-                        headers : {
-                            "Content-Type" : "application/json",
-                            "Authorization": `Bearer ${access}`
-                        }
-                });
-
-                if(!nflFavoriteResponse.ok){
-                    return;
-                }
-
-                const nflFavorites = await nflFavoriteResponse.json();
-                setNflPlayerFavorites(nflFavorites);
-            } catch(error){
-            }
-        }
-
-        async function loadNBAPlayerFavorites(){
-            if(!access){
-                return;
-            }
-            try{
-                const nbaFavoriteResponse = await 
-                    fetch(`${API_URL}/user/nbaPlayers/favorite`,{
-                        method : "POST",
-                        headers : {
-                            "Content-Type" : "application/json",
-                            "Authorization": `Bearer ${access}`
-                        }
-                });
-
-                if(!nbaFavoriteResponse.ok){
-                    return;
-                }
-
-                const nbaFavorites = await nbaFavoriteResponse.json();
-                setNbaPlayerFavorites(nbaFavorites);
-            } catch(error){
-            }
-        }
-
-        loadNFLNews();
-        loadNBANews();
-        loadNFLPlayerFavorites();
-        loadNBAPlayerFavorites();
-    },[access])
-
-    document.title = "Home";
-
+        document.title = "Home";
+    },[]);
     return(
         <div className="HomePageIfLoggedInNav">
             <Navbar/>

@@ -118,10 +118,10 @@ public class UserPreferencesController {
             name, team, pos);
     }
 
-    @PostMapping("/nbaPlayers/favorite/player")
-    public List<NBAPlayer> getUserNBAPlayerFavoriteByPlayerName(@RequestParam String player, 
+    @PostMapping("/nbaPlayers/favorite/playerName")
+    public List<NBAPlayer> getUserNBAPlayerFavoriteByPlayerName(@RequestParam String playerName, 
     @AuthenticationPrincipal UserDetails userDetails){
         String name = userDetails.getUsername();
-        return nbaPlayerService.getNBAPlayerInFavorites(player, name);
+        return nbaPlayerService.getNBAPlayerInFavorites(playerName, name);
     }
 }

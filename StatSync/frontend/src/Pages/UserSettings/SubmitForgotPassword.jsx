@@ -54,7 +54,9 @@ function SubmitForgotPassword(){
         }
     }
 
-    document.title = "Create New Password";
+    useEffect(() => {
+        document.title = "Create New Password";
+    },[]);
 
     return(
         <>

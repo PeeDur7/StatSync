@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function ForgotPasswordPage(){
@@ -35,8 +35,9 @@ function ForgotPasswordPage(){
         }
     }
 
-    document.title = "Forgot Password"
-
+    useEffect(() => {
+        document.title = "Forgot Password";
+    }, []);
     return(
         <div className="forgotPasswordContainer">
             <h1>Forgot Password</h1>
