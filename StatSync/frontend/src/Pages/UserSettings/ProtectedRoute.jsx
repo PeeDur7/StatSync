@@ -9,7 +9,7 @@ function ProtectedRoute({ children }) {
 
     useEffect(() => {
         async function verifyAuth() {
-            const accessToken = localStorage.getItem("accessToken");
+            const accessToken = sessionStorage.getItem("accessToken");
             const refreshToken = localStorage.getItem("refreshToken");
 
             // Both tokens present - user is good
@@ -36,18 +36,18 @@ function ProtectedRoute({ children }) {
                     
                     if (response.ok) {
                         const data = await response.json();
-                        localStorage.setItem("accessToken", data.accessToken);
+                        sessionStorage.setItem("accessToken", data.accessToken);
                         localStorage.setItem("refreshToken", data.refreshToken);
                         setIsAuthenticated(true);
                     } else {
                         // Refresh token also invalid - clear and redirect
                         localStorage.removeItem("refreshToken");
-                        localStorage.removeItem("accessToken");
+                        sessionStorage.removeItem("accessToken");
                         navigate("/");
                     }
                 } catch (error) {
                     localStorage.removeItem("refreshToken");
-                    localStorage.removeItem("accessToken");
+                    sessionStorage.removeItem("accessToken");
                     navigate("/");
                 }
             }

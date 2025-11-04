@@ -36,7 +36,7 @@ function PublicRoute({ children }) {
                     
                     if (response.ok) {
                         const data = await response.json();
-                        localStorage.setItem("accessToken", data.accessToken);
+                        sessionStorage.setItem("accessToken", data.accessToken);
                         localStorage.setItem("refreshToken", data.refreshToken);
                         // User is authenticated, redirect to home
                         navigate("/home");
@@ -44,12 +44,12 @@ function PublicRoute({ children }) {
                     } else {
                         // Refresh token also invalid - clear and allow access
                         localStorage.removeItem("refreshToken");
-                        localStorage.removeItem("accessToken");
+                        sessionStorage.removeItem("accessToken");
                         setIsAuthenticated(false);
                     }
                 } catch (error) {
                     localStorage.removeItem("refreshToken");
-                    localStorage.removeItem("accessToken");
+                    sessionStorage.removeItem("accessToken");
                     setIsAuthenticated(false);
                 }
             }
