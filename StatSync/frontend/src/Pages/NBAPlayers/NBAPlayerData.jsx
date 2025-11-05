@@ -147,7 +147,7 @@ function NBAPlayerData() {
         try{
             if(!player || !accessToken) return;
             
-            const respo = await fetch(`${API_URL}/user/nbaPlayers/favorite/playerName?playerName=${player.name}`,{
+            const respo = await fetch(`${API_URL}/user/nbaPlayers/favorite/playername?playerName=${player.name}`,{
                 method : "POST",
                 headers : {
                     "Content-Type": "application/json", 
@@ -161,9 +161,7 @@ function NBAPlayerData() {
             const favoriteList = await respo.json();
             
             // Check if any player in the list matches the current player's ID
-            const isInFavorites = favoriteList.some(favPlayer => 
-              favPlayer.id === player.id || favPlayer.id === player._id
-            );
+            const isInFavorites = favoriteList.some(favPlayer => favPlayer.id === player.id);
             
             if(isInFavorites){
                 setRemoveButton(true);

@@ -118,7 +118,7 @@ public class UserPreferencesController {
             name, team, pos);
     }
 
-    @PostMapping("/nbaPlayers/favorite/playerName")
+    @PostMapping("/nbaPlayers/favorite/playername")
     public List<NBAPlayer> getUserNBAPlayerFavoriteByPlayerName(@RequestParam String playerName, 
     @AuthenticationPrincipal UserDetails userDetails){
         String name = userDetails.getUsername();
