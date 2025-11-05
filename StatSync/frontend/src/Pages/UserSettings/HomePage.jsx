@@ -8,7 +8,6 @@ function HomePage(){
     const [nbaNews, setNbaNews] = useState([]);
     const [nflPlayerFavorites,setNflPlayerFavorites] = useState([]);
     const [nbaPlayerFavorites,setNbaPlayerFavorites] = useState([]);
-    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
     const API_URL = import.meta.env.VITE_API_URL;
 
@@ -21,7 +20,7 @@ function HomePage(){
                 await Promise.all([
                     (async () => {
                         try {
-                            const response = await fetch(`${API_URL}/nfl/news/home?limit=4`, {
+                            const response = await fetch(`${API_URL}/nfl/news/home?limit=10`, {
                                 headers: {
                                     "Content-Type": "application/json",
                                     "Authorization": `Bearer ${access}`
@@ -35,7 +34,7 @@ function HomePage(){
                     })(),
                     (async () => {
                         try {
-                            const response = await fetch(`${API_URL}/nba/news/home?limit=4`, {
+                            const response = await fetch(`${API_URL}/nba/news/home?limit=10`, {
                                 headers: {
                                     "Content-Type": "application/json",
                                     "Authorization": `Bearer ${access}`
@@ -94,8 +93,7 @@ function HomePage(){
                         } catch {}
                     })()
                 ]);
-            } finally {
-                setLoading(false); 
+            }  catch (e){
             }
         };
     
@@ -106,17 +104,6 @@ function HomePage(){
     useEffect(() => {
         document.title = "Home";
     },[]);
-
-    if(loading){
-        return(
-            <div className="HomePageIfLoggedInNav">
-                <Navbar/>
-                <div className="HomePageIfLoggedInContainer">
-                    <h2>Loading Home Page...</h2>
-                </div>
-            </div>
-        )
-    }
 
     return(
         <div className="HomePageIfLoggedInNav">

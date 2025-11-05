@@ -11,7 +11,6 @@ function NFLPlayerData() {
   const [removeButton, setRemoveButton] = useState(false);
   const [addButton, setAddButton] = useState(true);
   const [selectedGameLogYear, setSelectedGameLogYear] = useState(null);
-  const [loading, setLoading] = useState(true);
   const accessToken = sessionStorage.getItem("accessToken");
 
   const API_URL = import.meta.env.VITE_API_URL; 
@@ -155,8 +154,6 @@ function NFLPlayerData() {
         setRemoveButton(isInFavorites);
         setAddButton(!isInFavorites);
       } catch (err) {
-      } finally {
-        setLoading(false);
       }
     }
 
@@ -186,7 +183,7 @@ function NFLPlayerData() {
     }
   }, [player, selectedGameLogYear]);
 
-  if (!player || loading) {
+  if (!player) {
     return (
       <div className="NFLPlayerDataPage">
         <Navbar />

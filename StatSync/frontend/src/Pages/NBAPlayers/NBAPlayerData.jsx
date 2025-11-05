@@ -11,7 +11,6 @@ function NBAPlayerData() {
   const [removeButton, setRemoveButton] = useState(false);
   const [addButton, setAddButton] = useState(true);
   const [selectedGameLogYear, setSelectedGameLogYear] = useState(null);
-  const [loading, setLoading] = useState(true);
   const accessToken = sessionStorage.getItem("accessToken");
 
   const API_URL = import.meta.env.VITE_API_URL; 
@@ -165,7 +164,7 @@ function NBAPlayerData() {
     }
   }, [player, selectedGameLogYear]);
 
-  if (!player || loading) {
+  if (!player) {
     return (
       <div className="NBAPlayerDataPage">
         <Navbar />

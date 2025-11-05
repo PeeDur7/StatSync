@@ -13,7 +13,6 @@ function PlayerLists({sportName}){
     const [searchCategory, setSearchCategory] = useState("Filter"); //the actual value of the category
     const [selectedPosition, setSelectedPosition] = useState("All");
     const [error,setError] = useState("");
-    const [loading, setLoading] = useState(true);
 
     const API_URL = import.meta.env.VITE_API_URL; 
     const access = sessionStorage.getItem("accessToken");
@@ -45,8 +44,6 @@ function PlayerLists({sportName}){
                 setPlayers(allPlayerData);
                 setError("");
             } catch(error){
-            } finally {
-                setLoading(false);
             }
         }
         loadAllPlayers();
@@ -247,17 +244,6 @@ function PlayerLists({sportName}){
             } catch(error){
             }
         }
-    }
-
-    if (loading) {
-        return (
-            <div className="playerListPage">
-                <Navbar />
-                <div className="playerListPageContainer">
-                    <h2>Loading players...</h2>
-                </div>
-            </div>
-        );
     }
 
     return(
