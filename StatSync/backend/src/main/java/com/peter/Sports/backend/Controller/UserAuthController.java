@@ -1,5 +1,7 @@
 package com.peter.Sports.backend.Controller;
 
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -65,8 +67,14 @@ public class UserAuthController {
     }
 
     @PostMapping("/refresh")
-    public AuthResponse refresh(@RequestBody RefreshTokenRequest request){
-        return authenticationService.refresh(request);
+    public ResponseEntity<?> refresh(@RequestBody RefreshTokenRequest request){
+        try{
+            AuthResponse response = authenticationService.refresh(request);
+            return ResponseEntity.ok(response);
+        } catch(Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+            .body(Map.of("error", e.getMessage())); 
+        }
     }
 
     //in front end make this first
