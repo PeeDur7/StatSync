@@ -179,7 +179,7 @@ function PlayerLists({sportName}){
                 setPlayers(dbPlayers);
                 setError("");
             } else {
-                loadPlayerBySelectedPosition();
+                await loadPlayerBySelectedPosition();
             }
             return;
         }
@@ -230,10 +230,10 @@ function PlayerLists({sportName}){
                     setPlayers([]);
                     return;
                 }
-                const players = await playerResponse.json();
-                let filteredPlayers = playerData;
+                const playerList = await playerResponse.json();
+                let filteredPlayers = playerList;
                 if(selectedPosition !== "All") {
-                    filteredPlayers = playerData.filter(p => p.pos === selectedPosition);
+                    filteredPlayers = playerList.filter(p => p.pos === selectedPosition);
                 }
                 
                 if(filteredPlayers.length === 0){
@@ -264,9 +264,9 @@ function PlayerLists({sportName}){
         <div className = "playerListPage">
             <Navbar/>
             <div className = "playerListPageContainer">
-                <form onSubmit={(e) => {
+                <form onSubmit={async (e) => {
                     e.preventDefault();
-                    loadPlayerByName(searchPlayer);
+                    await loadPlayerByName(searchPlayer);
                 }}>
                     <div className="playerListSearchBar">
                         <input 
@@ -275,9 +275,9 @@ function PlayerLists({sportName}){
                             onChange={(e) => setSearchPlayer(e.target.value)}
                             placeholder="Search Player"
                         />
-                        <button onClick={(e) => {
+                        <button onClick={async (e) => {
                             e.preventDefault();
-                            loadPlayerByName(searchPlayer);
+                            await loadPlayerByName(searchPlayer);
                         }}>Search</button>
                     </div>
                 </form>

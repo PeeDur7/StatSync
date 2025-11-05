@@ -133,9 +133,33 @@ function NFLPlayerData() {
         if (!res.ok) return;
         const data = await res.json();
         setPlayer(data);
+
+        if(!data || !accessToken) return;
+        
+        const respo = await fetch(`${API_URL}/user/nflPlayers/favorite/playername?playerName=${player.name}`,{
+            method : "POST",
+            headers : {
+                "Content-Type": "application/json", 
+                Authorization: `Bearer ${accessToken}`
+            },
+        });
+
+        if(!respo.ok){
+            return;
+        }
+        const favoriteList = await respo.json();
+        
+        // Check if any player in the list matches the current player's ID
+        const isInFavorites = favoriteList.some(favPlayer => favPlayer.id === player.id);
+        
+        setRemoveButton(isInFavorites);
+        setAddButton(!isInFavorites);
       } catch (err) {
+      } finally {
+        setLoading(false);
       }
     }
+
     getPlayerData();
   }, [accessToken, playerId]);
 
@@ -161,43 +185,6 @@ function NFLPlayerData() {
       setSelectedGameLogYear(gameLogYears[0]);
     }
   }, [player, selectedGameLogYear]);
-
-  useEffect(() => {
-    async function checkNFLPlayerInFavorites(){
-        try{
-            if(!player || !accessToken) return;
-            
-            const respo = await fetch(`${API_URL}/user/nflPlayers/favorite/playername?playerName=${player.name}`,{
-                method : "POST",
-                headers : {
-                    "Content-Type": "application/json", 
-                    Authorization: `Bearer ${accessToken}`
-                },
-            });
-
-            if(!respo.ok){
-                return;
-            }
-            const favoriteList = await respo.json();
-            
-            // Check if any player in the list matches the current player's ID
-            const isInFavorites = favoriteList.some(favPlayer => favPlayer.id === player.id);
-            
-            if(isInFavorites){
-                setRemoveButton(true);
-                setAddButton(false);
-            } else {
-                setAddButton(true);
-                setRemoveButton(false);
-            }
-        } catch(e){
-        } finally {
-          setLoading(false);
-        }
-    }
-
-    checkNFLPlayerInFavorites();
-  }, [player, accessToken]);
 
   if (!player || loading) {
     return (

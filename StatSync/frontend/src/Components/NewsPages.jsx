@@ -38,7 +38,7 @@ function NewsPages({sportName}){
         }
         loadSportsNews();
         document.title = `${sportName.toUpperCase()} News`
-    },[]);
+    },[sportName, API_URL]);
 
     async function getNewsOfSearchText(searchText){
         const accessToken = sessionStorage.getItem("accessToken");
@@ -81,9 +81,9 @@ function NewsPages({sportName}){
         <div className="NewsPage">
             <Navbar/>
             <div className ="NewsPageContainer">
-                <form onSubmit={(e) => {
+                <form onSubmit={ async (e) => {
                     e.preventDefault();
-                    getNewsOfSearchText(searchText);
+                    await getNewsOfSearchText(searchText);
                 }}>
                     <div className="NewsPageSearch">
                         <input type="search" 
@@ -92,9 +92,9 @@ function NewsPages({sportName}){
                             placeholder="Search latest news"
                         />
                         <button onClick={
-                            (e) => {
+                            async (e) => {
                                 e.preventDefault();
-                                getNewsOfSearchText(searchText)
+                                await getNewsOfSearchText(searchText)
                         }}>Search</button>
                     </div>
                     <div className="NewsPageColumn">

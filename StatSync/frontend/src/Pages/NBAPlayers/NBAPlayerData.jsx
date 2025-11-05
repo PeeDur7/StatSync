@@ -109,6 +109,28 @@ function NBAPlayerData() {
         if (!res.ok) return;
         const data = await res.json();
         setPlayer(data);
+
+        if(!data || !accessToken) return;
+            
+            const respo = await fetch(`${API_URL}/user/nbaPlayers/favorite/playername?playerName=${player.name}`,{
+                method : "POST",
+                headers : {
+                    "Content-Type": "application/json", 
+                    Authorization: `Bearer ${accessToken}`
+                },
+            });
+
+            if(!respo.ok){
+                return;
+            }
+            const favoriteList = await respo.json();
+            
+            // Check if any player in the list matches the current player's ID
+            const isInFavorites = favoriteList.some(favPlayer => favPlayer.id === player.id);
+
+            setRemoveButton(isInFavorites);
+            setAddButton(!isInFavorites);
+
       } catch (err) {
       } 
     }
@@ -142,43 +164,6 @@ function NBAPlayerData() {
       setSelectedGameLogYear(gameLogYears[0]);
     }
   }, [player, selectedGameLogYear]);
-
-  useEffect(() => {
-    async function checkNBAPlayerInFavorites(){
-        try{
-            if(!player || !accessToken) return;
-            
-            const respo = await fetch(`${API_URL}/user/nbaPlayers/favorite/playername?playerName=${player.name}`,{
-                method : "POST",
-                headers : {
-                    "Content-Type": "application/json", 
-                    Authorization: `Bearer ${accessToken}`
-                },
-            });
-
-            if(!respo.ok){
-                return;
-            }
-            const favoriteList = await respo.json();
-            
-            // Check if any player in the list matches the current player's ID
-            const isInFavorites = favoriteList.some(favPlayer => favPlayer.id === player.id);
-            
-            if(isInFavorites){
-                setRemoveButton(true);
-                setAddButton(false);
-            } else {
-                setAddButton(true);
-                setRemoveButton(false);
-            }
-        } catch(e){
-        } finally {
-          setLoading(false);
-        }
-    }
-
-    checkNBAPlayerInFavorites();
-  }, [player, accessToken]);
 
   if (!player || loading) {
     return (
