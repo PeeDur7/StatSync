@@ -27,7 +27,7 @@ function PublicRoute({ children }) {
 
             // Access token expired but refresh token exists - try to refresh
             if (!accessToken && refreshToken) {
-                console.log("Attempting refresh with token:", refreshToken.substring(0, 20) + "...");
+                console.log("Attempting refresh with token:", refreshToken);
                 try {
                     const response = await fetch(`${API_URL}/api/refresh`, {
                         method: "POST",

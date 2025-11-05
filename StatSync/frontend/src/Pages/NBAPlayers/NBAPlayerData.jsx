@@ -147,7 +147,7 @@ function NBAPlayerData() {
         try{
             if(!player || !accessToken) return;
             
-            const respo = await fetch(`${API_URL}/user/nbaPlayers/favorite/player?player=${player.name}`,{
+            const respo = await fetch(`${API_URL}/user/nbaPlayers/favorite/playerName?playerName=${player.name}`,{
                 method : "POST",
                 headers : {
                     "Content-Type": "application/json", 
