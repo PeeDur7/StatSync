@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 function NFLNavBar({selectedPosition, setSelectedPosition,
     filterText, setFilterText, loadPlayers,
     searchCategory, setSearchCategory}){
