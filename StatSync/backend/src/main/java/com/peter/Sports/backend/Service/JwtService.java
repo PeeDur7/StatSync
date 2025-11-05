@@ -27,7 +27,7 @@ public class JwtService {
     }
 
     private String createToken(Map<String,Object> claims, String name){
-        long expirationMillis = 1000 * 60 * 60 * 2; // 2 hours
+        long expirationMillis = 1000L * 60 * 60 * 2; // 2 hours
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(name)
@@ -37,7 +37,7 @@ public class JwtService {
                 .compact();
     }
     public String generateRefreshToken(String name) {
-        long expirationMillis = 1000 * 60 * 60 * 24 * 90; // 90 days
+        long expirationMillis = 1000L * 60 * 60 * 24 * 90; // 90 days
         Map<String, Object> claims = new HashMap<>();
         claims.put("type", "refresh");
         return Jwts.builder()

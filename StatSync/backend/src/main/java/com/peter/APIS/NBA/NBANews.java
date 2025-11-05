@@ -19,9 +19,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class NBANews {
     @SuppressWarnings("unchecked")
-    public static List<Map<String,String>> fetchNBANews(){
+    public static List<Map<String,String>> fetchNBANews(String limit){
         List<Map<String,String>> nbaNews = new ArrayList<>();
-        String url = "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/news?limit=20";
+        String url = "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/news?limit=" + limit;
         Map<String,Object> nbaNewsAPI = jsonResponseAPI(url);
         List<Map<String,Object>> articles = (List<Map<String,Object>>) nbaNewsAPI.get("articles");
         if(articles == null){

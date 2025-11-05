@@ -52,7 +52,13 @@ public class NFLPlayersController {
 
     @GetMapping("/news")
     public List<Map<String,String>> getNFLNews(){
-        return nflPlayerService.getNFLNews();
+        //limit is 25 by default
+        return nflPlayerService.getNFLNews("25");
+    }
+
+    @GetMapping("/news/home")
+    public List<Map<String,String>> getNFLNews(@RequestParam String limit){
+        return nflPlayerService.getNFLNews(limit);
     }
 
     @GetMapping("/player/news")

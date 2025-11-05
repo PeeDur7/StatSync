@@ -358,7 +358,7 @@ function NFLPlayerData() {
             const atVs = weekData.atVs === "@" ? "@" : "";
             const opponent = weekData.opponent === "N/A" ? "-" : weekData.opponent;
             const score = weekData.score ==="N/A" ? "-" : weekData.score;
-            const gameResult = weekData.gameResult === "N/A" ? "" : weekData.gameResult;
+            const gameResult = weekData.gameResult === "N/A" ? "" : " " + weekData.gameResult;
             const weekStats = weekData.stats || {};
 
             return (

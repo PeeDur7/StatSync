@@ -2769,7 +2769,9 @@ body {
     transform: translateY(-2px);
   }
   
-  .year-button.active {
+  .year-button.active,
+  .NFLNavBar button.active,
+  .NBANavBar button.active{
     background: linear-gradient(135deg, #199397, #2a5298);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }

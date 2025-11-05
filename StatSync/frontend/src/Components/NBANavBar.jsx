@@ -58,10 +58,30 @@ function NBANavBar({selectedPosition,setSelectedPosition,
 
     return(
         <div className="NBANavBar">
-            <button value="All" onClick={changeSelectedCategory}>All</button>
-            <button value="G" onClick={changeSelectedCategory}>G</button>
-            <button value="F" onClick={changeSelectedCategory}>F</button>
-            <button value="C" onClick={changeSelectedCategory}>C</button>
+            <button 
+                value="All" 
+                onClick={changeSelectedCategory}
+                className={selectedPosition === "All" ? "active" : ""}>
+                All
+            </button>
+            <button 
+                value="G" 
+                onClick={changeSelectedCategory}
+                className={selectedPosition === "G" ? "active" : ""}>
+                G
+            </button>
+            <button 
+                value="F" 
+                onClick={changeSelectedCategory}
+                className={selectedPosition === "F" ? "active" : ""}>
+                F
+            </button>
+            <button 
+                value="C" 
+                onClick={changeSelectedCategory}
+                className={selectedPosition === "C" ? "active" : ""}>
+                C
+            </button>
             <div className="NBANavBarTeamFilter">
                 <button value="Filter" onClick={changeFilterDropdown}>{filterText}</button>
                 {filterDropdown && 

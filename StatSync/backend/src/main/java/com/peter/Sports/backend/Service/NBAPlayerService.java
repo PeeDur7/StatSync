@@ -275,12 +275,12 @@ public class NBAPlayerService {
                 .collect(Collectors.toList());
     }
 
-    public List<Map<String,String>> getNBANews(){
-        return NBANews.fetchNBANews();
+    public List<Map<String,String>> getNBANews(String limit){
+        return NBANews.fetchNBANews(limit);
     }
 
     public List<Map<String,String>> getNBANewsForPlayer(String name){
-        List<Map<String,String>> news = getNBANews();
+        List<Map<String,String>> news = getNBANews("25");
         return news.stream()
                 .filter(headline -> headline.get("headline").toLowerCase().contains(name.toLowerCase()))
                 .collect(Collectors.toList());

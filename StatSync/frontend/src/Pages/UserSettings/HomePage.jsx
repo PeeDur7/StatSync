@@ -21,7 +21,7 @@ function HomePage(){
                 await Promise.all([
                     (async () => {
                         try {
-                            const response = await fetch(`${API_URL}/nfl/news`, {
+                            const response = await fetch(`${API_URL}/nfl/news/home?limit=4`, {
                                 headers: {
                                     "Content-Type": "application/json",
                                     "Authorization": `Bearer ${access}`
@@ -35,7 +35,7 @@ function HomePage(){
                     })(),
                     (async () => {
                         try {
-                            const response = await fetch(`${API_URL}/nba/news`, {
+                            const response = await fetch(`${API_URL}/nba/news/home?limit=4`, {
                                 headers: {
                                     "Content-Type": "application/json",
                                     "Authorization": `Bearer ${access}`

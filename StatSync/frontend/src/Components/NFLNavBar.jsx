@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react"
-
-function NFLNavBar({selectedPosition,setSelectedPosition,
-    filterText,setFilterText, loadPlayers,
+function NFLNavBar({selectedPosition, setSelectedPosition,
+    filterText, setFilterText, loadPlayers,
     searchCategory, setSearchCategory}){
     const[filterDropdown,setFilterDropdown] = useState(false);
     const [teamListDropdown,setTeamListDropdown] = useState(false);
@@ -52,12 +50,42 @@ function NFLNavBar({selectedPosition,setSelectedPosition,
 
     return(
         <div className="NFLNavBar">
-            <button value="All" onClick={changeSelectedCategory}>All</button>
-            <button value="QB" onClick={changeSelectedCategory}>QB</button>
-            <button value="RB" onClick={changeSelectedCategory}>RB</button>
-            <button value="WR" onClick={changeSelectedCategory}>WR</button>
-            <button value="TE" onClick={changeSelectedCategory}>TE</button>
-            <button value="PK"onClick={changeSelectedCategory}>K</button>
+            <button 
+                value="All" 
+                onClick={changeSelectedCategory}
+                className={selectedPosition === "All" ? "active" : ""}>
+                All
+            </button>
+            <button 
+                value="QB" 
+                onClick={changeSelectedCategory}
+                className={selectedPosition === "QB" ? "active" : ""}>
+                QB
+            </button>
+            <button 
+                value="RB" 
+                onClick={changeSelectedCategory}
+                className={selectedPosition === "RB" ? "active" : ""}>
+                RB
+            </button>
+            <button 
+                value="WR" 
+                onClick={changeSelectedCategory}
+                className={selectedPosition === "WR" ? "active" : ""}>
+                WR
+            </button>
+            <button 
+                value="TE" 
+                onClick={changeSelectedCategory}
+                className={selectedPosition === "TE" ? "active" : ""}>
+                TE
+            </button>
+            <button 
+                value="PK"
+                onClick={changeSelectedCategory}
+                className={selectedPosition === "PK" ? "active" : ""}>
+                K
+            </button>
             <div className="NFLNavBarTeamFilter">
                 <button value="Filter" onClick={changeFilterDropdown}>{filterText}</button>
                 {filterDropdown && 

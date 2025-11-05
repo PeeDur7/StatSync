@@ -286,12 +286,12 @@ public class NFLPlayerService {
         return new NFLPlayer();
     }
 
-    public List<Map<String,String>> getNFLNews(){
-        return NFLNews.fetchNFLNews();
+    public List<Map<String,String>> getNFLNews(String limit){
+        return NFLNews.fetchNFLNews(limit);
     }
     
     public List<Map<String,String>> getNFLNewsForPlayer(String name){
-        List<Map<String,String>> nflNews = getNFLNews();
+        List<Map<String,String>> nflNews = getNFLNews("25");
         return nflNews.stream()
                 .filter(headline -> headline.get("headline").toLowerCase().contains(name.toLowerCase()))
                 .collect(Collectors.toList());

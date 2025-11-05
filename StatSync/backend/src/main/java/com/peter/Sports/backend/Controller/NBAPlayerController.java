@@ -52,7 +52,13 @@ public class NBAPlayerController {
 
     @GetMapping("/news")
     public List<Map<String,String>> getNBANews(){
-        return nbaPlayerService.getNBANews();
+        return nbaPlayerService.getNBANews("25");
+    }
+
+    @GetMapping("/news/home")
+    public List<Map<String,String>> getNBANews(String limit)
+    {
+        return nbaPlayerService.getNBANews(limit);
     }
 
     @GetMapping("/player/news")
