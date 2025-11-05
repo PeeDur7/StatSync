@@ -11,6 +11,7 @@ function NBAPlayerData() {
   const [removeButton, setRemoveButton] = useState(false);
   const [addButton, setAddButton] = useState(true);
   const [selectedGameLogYear, setSelectedGameLogYear] = useState(null);
+  const [loading, setLoading] = useState(true);
   const accessToken = sessionStorage.getItem("accessToken");
 
   const API_URL = import.meta.env.VITE_API_URL; 
@@ -109,7 +110,7 @@ function NBAPlayerData() {
         const data = await res.json();
         setPlayer(data);
       } catch (err) {
-      }
+      } 
     }
     getPlayerData();
   }, [accessToken, playerId]);
@@ -171,13 +172,15 @@ function NBAPlayerData() {
                 setRemoveButton(false);
             }
         } catch(e){
+        } finally {
+          setLoading(false);
         }
     }
 
     checkNBAPlayerInFavorites();
   }, [player, accessToken]);
 
-  if (!player) {
+  if (!player || loading) {
     return (
       <div className="NBAPlayerDataPage">
         <Navbar />

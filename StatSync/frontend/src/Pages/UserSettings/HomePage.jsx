@@ -8,6 +8,7 @@ function HomePage(){
     const [nbaNews, setNbaNews] = useState([]);
     const [nflPlayerFavorites,setNflPlayerFavorites] = useState([]);
     const [nbaPlayerFavorites,setNbaPlayerFavorites] = useState([]);
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
     const API_URL = import.meta.env.VITE_API_URL;
 
@@ -106,12 +107,25 @@ function HomePage(){
             loadNBAPlayerFavorites(),
             getUserName()
         ]);
+        setLoading(false);
     
     }, [navigate, API_URL]);
 
     useEffect(() => {
         document.title = "Home";
     },[]);
+
+    if(loading){
+        return(
+            <div className="HomePageIfLoggedInNav">
+                <Navbar/>
+                <div className="HomePageIfLoggedInContainer">
+                    <h2>Loading Home Page...</h2>
+                </div>
+            </div>
+        )
+    }
+
     return(
         <div className="HomePageIfLoggedInNav">
             <Navbar/>

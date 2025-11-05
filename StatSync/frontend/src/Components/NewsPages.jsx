@@ -6,6 +6,7 @@ function NewsPages({sportName}){
     const [searchText, setSearchText] = useState("");
     const [lastSearchedText, setLastSearchedText] = useState("");
     const[currentNews, setCurrentNews] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const API_URL = import.meta.env.VITE_API_URL; 
 
@@ -31,6 +32,8 @@ function NewsPages({sportName}){
                 setCurrentNews(newsResponseData);
                 setSportsNews(newsResponseData);
             } catch(error){
+            } finally {
+                setLoading(false);
             }
         }
         loadSportsNews();
@@ -61,6 +64,17 @@ function NewsPages({sportName}){
             setCurrentNews(newsSearchResponseData);
         } catch(error){
         }
+    }
+
+    if(loading){
+        return(
+            <div className="NewsPage">
+                <Navbar/>
+                <div className ="NewsPageContainer">
+                    <h2>Loading news...</h2>
+                </div>
+            </div>
+        )
     }
 
     return(
