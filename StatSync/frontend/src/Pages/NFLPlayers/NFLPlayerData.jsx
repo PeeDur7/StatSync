@@ -180,7 +180,7 @@ function NFLPlayerData() {
             const favoriteList = await respo.json();
             
             // Check if any player in the list matches the current player's ID
-            const isInFavorites = favoriteList.some(favPlayer => favPlayer.id === player.id);
+            const isInFavorites = favoriteList.some(favPlayer => favPlayer.id === player.id || favPlayer.id === player._id);
             
             if(isInFavorites){
                 setRemoveButton(true);
