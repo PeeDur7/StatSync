@@ -59,6 +59,11 @@
   background-color: rgba(255, 255, 255, 0.15);
 }
 
+/* Remove hover effect from logout button specifically */
+.UserDropList button:hover {
+  background-color: transparent;
+}
+
 /* Make dropdowns appear in column layout */
 .NFLNav,
 .NBANav,

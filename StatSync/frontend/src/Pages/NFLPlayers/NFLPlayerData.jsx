@@ -11,6 +11,7 @@ function NFLPlayerData() {
   const [removeButton, setRemoveButton] = useState(false);
   const [addButton, setAddButton] = useState(true);
   const [selectedGameLogYear, setSelectedGameLogYear] = useState(null);
+  const [loading, setLoading] = useState(true);
   const accessToken = sessionStorage.getItem("accessToken");
 
   const API_URL = import.meta.env.VITE_API_URL; 
@@ -125,40 +126,46 @@ function NFLPlayerData() {
 
     async function getPlayerData() {
       try {
+        setLoading(true);
         const res = await fetch(`${API_URL}/nfl/player/data?id=${playerId}`, {
           method: "GET",
           headers: { "Content-Type": "application/json", Authorization: `Bearer ${accessToken}` },
         });
         if (!res.ok) return;
         const data = await res.json();
-        setPlayer(data);
 
-        if(!data || !accessToken) return;
-        
-        const respo = await fetch(`${API_URL}/user/nflPlayers/favorite/playername?playerName=${player.name}`,{
-            method : "POST",
-            headers : {
+        // Check favorites BEFORE setting player state
+        if (data && accessToken) {
+          try {
+            const respo = await fetch(`${API_URL}/user/nflPlayers/favorite/playername?playerName=${data.name}`, {
+              method: "POST",
+              headers: {
                 "Content-Type": "application/json", 
                 Authorization: `Bearer ${accessToken}`
-            },
-        });
+              },
+            });
 
-        if(!respo.ok){
-            return;
+            if (respo.ok) {
+              const favoriteList = await respo.json();
+              
+              // Check if any player in the list matches the current player's ID
+              const isInFavorites = favoriteList.some(favPlayer => favPlayer.id === data.id);
+              
+              setRemoveButton(isInFavorites);
+              setAddButton(!isInFavorites);
+            }
+          } catch (err) {
+          }
         }
-        const favoriteList = await respo.json();
-        
-        // Check if any player in the list matches the current player's ID
-        const isInFavorites = favoriteList.some(favPlayer => favPlayer.id === player.id);
-        
-        setRemoveButton(isInFavorites);
-        setAddButton(!isInFavorites);
+
+        setPlayer(data);
+        setLoading(false);
       } catch (err) {
       }
     }
 
     getPlayerData();
-  }, [accessToken, playerId]);
+  }, [accessToken, playerId, API_URL]);
 
   // Process stats
   useEffect(() => {
@@ -183,7 +190,7 @@ function NFLPlayerData() {
     }
   }, [player, selectedGameLogYear]);
 
-  if (!player) {
+  if (!player || loading) {
     return (
       <div className="NFLPlayerDataPage">
         <Navbar />
