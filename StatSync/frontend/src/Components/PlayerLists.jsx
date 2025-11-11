@@ -180,7 +180,7 @@ function PlayerLists({sportName}){
             }
             return;
         }
-
+    
         if(searchCategory === "Filter"){
             try{
                 const playerResponse = await fetch(`${API_URL}/${sportName}/players/player/name?name=${playerName}`,{
@@ -214,35 +214,63 @@ function PlayerLists({sportName}){
             } catch(error){
             }
         } else if(searchCategory === "Favorite"){
-            try{
-                const playerResponse = await fetch(`${API_URL}/user/${sportName}Players/favorite/playername?playerName=${searchPlayer}`,{
-                    method : "GET",
-                    headers : {
-                        "Content-Type" : "application/json",
-                        "Authorization" : `Bearer ${access}`
+            // Load favorites with position filter first
+            let favoritePlayers;
+            
+            if(selectedPosition === "All") {
+                try{
+                    const response = await fetch(`${API_URL}/user/${sportName}Players/favorite`,{
+                        method : "POST",
+                        headers : {
+                            "Content-Type" : "application/json",
+                            "Authorization" : `Bearer ${access}`
+                        }
+                    });
+                    if(!response.ok){
+                        setError("No players could be found");
+                        setPlayers([]);
+                        return;
                     }
-                });
-                if(!playerResponse.ok){
-                    setError("Player could not be found");
+                    favoritePlayers = await response.json();
+                } catch(error){
+                    setError("Error loading favorites");
                     setPlayers([]);
                     return;
                 }
-                const playerList = await playerResponse.json();
-                let filteredPlayers = playerList;
-                if(selectedPosition !== "All") {
-                    filteredPlayers = playerList.filter(p => p.pos === selectedPosition);
-                }
-                
-                if(filteredPlayers.length === 0){
-                    setError(`No ${selectedPosition === "All" ? "" : selectedPosition + " "}players found matching "${playerName}"`);
+            } else {
+                try{
+                    const response = await fetch(`${API_URL}/user/${sportName}Players/favorite/position?pos=${selectedPosition}`,{
+                        method : "POST",
+                        headers : {
+                            "Content-Type" : "application/json",
+                            "Authorization" : `Bearer ${access}`
+                        }
+                    });
+                    if(!response.ok){
+                        setError("No players could be found");
+                        setPlayers([]);
+                        return;
+                    }
+                    favoritePlayers = await response.json();
+                } catch(error){
+                    setError("Error loading favorites");
                     setPlayers([]);
                     return;
                 }
-                
-                setPlayers(filteredPlayers);
-                setError("");
-            } catch(error){
             }
+            
+            const filteredPlayers = favoritePlayers.filter(p => 
+                p.name.toLowerCase().includes(playerName.toLowerCase())
+            );
+            
+            if(filteredPlayers.length === 0){
+                setError(`No ${selectedPosition === "All" ? "" : selectedPosition + " "}favorite players found matching "${playerName}"`);
+                setPlayers([]);
+                return;
+            }
+            
+            setPlayers(filteredPlayers);
+            setError("");
         }
     }
 

@@ -2019,41 +2019,44 @@ body {
   
 /* Game Logs Section - Table Style */
 .NFLPlayerDataPageGameLogContainer {
-    background: #2d3748;
-    border-radius: 12px;
-    padding: 24px;
-    margin-bottom: 24px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    overflow-x: auto;
-  }
-  
-  .NFLPlayerDataPageGameLogHeader {
-    display: flex;
-    gap: 8px;
-    padding: 12px 0;
-    margin-bottom: 8px;
-    font-size: 12px;
-    font-weight: 700;
-    color: #94a3b8;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    min-width: fit-content;
-  }
-  
-  .NFLPlayerDataPageGameLogRow {
-    display: flex;
-    gap: 8px;
-    padding: 12px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    font-size: 14px;
-    font-weight: 600;
-    transition: background 0.2s;
-  }
-  
-  .NFLPlayerDataPageGameLogRow:hover {
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 6px;
-  }
+  background: #2d3748;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  overflow-x: auto;
+}
+
+.NFLPlayerDataPageGameLogHeader {
+  display: flex;
+  gap: 8px;
+  padding: 12px 0;
+  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  min-width: fit-content;
+  width: max-content; /* Add this */
+}
+
+.NFLPlayerDataPageGameLogRow {
+  display: flex;
+  gap: 8px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.2s;
+  min-width: fit-content; /* Add this */
+  width: max-content; /* Add this - makes row extend full width */
+}
+
+.NFLPlayerDataPageGameLogRow:hover {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 6px;
+}
   
   .week-col {
     min-width: 50px;
@@ -2456,41 +2459,44 @@ body {
   
 /* Game Logs Section - Table Style */
 .NBAPlayerDataPageGameLogContainer {
-    background: #2d3748;
-    border-radius: 12px;
-    padding: 24px;
-    margin-bottom: 24px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    overflow-x: auto;
-  }
-  
-  .NBAPlayerDataPageGameLogHeader {
-    display: flex;
-    gap: 8px;
-    padding: 12px 0;
-    margin-bottom: 8px;
-    font-size: 12px;
-    font-weight: 700;
-    color: #94a3b8;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    min-width: fit-content;
-  }
-  
-  .NBAPlayerDataPageGameLogRow {
-    display: flex;
-    gap: 8px;
-    padding: 12px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    font-size: 14px;
-    font-weight: 600;
-    transition: background 0.2s;
-  }
-  
-  .NBAPlayerDataPageGameLogRow:hover {
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 6px;
-  }
+  background: #2d3748;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  overflow-x: auto;
+}
+
+.NBAPlayerDataPageGameLogHeader {
+  display: flex;
+  gap: 8px;
+  padding: 12px 0;
+  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  min-width: fit-content;
+  width: max-content; /* Add this */
+}
+
+.NBAPlayerDataPageGameLogRow {
+  display: flex;
+  gap: 8px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.2s;
+  min-width: fit-content; /* Add this */
+  width: max-content; /* Add this */
+}
+
+.NBAPlayerDataPageGameLogRow:hover {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 6px;
+}
   
   .game-col {
     min-width: 50px;
