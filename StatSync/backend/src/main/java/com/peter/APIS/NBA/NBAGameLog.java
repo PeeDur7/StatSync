@@ -176,7 +176,6 @@ public class NBAGameLog {
                 }
                 HashMap<String,Object> existingInfo = (HashMap<String,Object>) currentGameLog.get(eventID);
                 existingInfo.put("stats", statHashMap);
-                currentGameLog.put(eventID,existingInfo); 
             }
         }
 
