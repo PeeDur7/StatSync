@@ -34,3 +34,5 @@ build/
 
 ### Application Properties (Contains sensitive data) ###
 src/main/resources/application.properties
+
+*.DS_Store

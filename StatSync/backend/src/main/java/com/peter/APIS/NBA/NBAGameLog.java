@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -23,7 +24,7 @@ public class NBAGameLog {
     public static HashMap<String,Object> getCurrentSeasonGameLog(String id){
         String url = String.format("https://site.web.api.espn.com/apis/common/v3/sports/basketball/nba/athletes/%s/gamelog",id);
         HashMap<String,Object> currentSeasonGameLogAPI = jsonResponseAPI(url);
-        HashMap<String,Object> currentGameLog = new HashMap<>();
+        HashMap<String,Object> currentGameLog = new LinkedHashMap<>();
         
         if(currentSeasonGameLogAPI.containsKey("code") || !currentSeasonGameLogAPI.containsKey("events")){
             currentGameLog.put("gameLog","N/A");
@@ -179,7 +180,7 @@ public class NBAGameLog {
             }
         }
 
-        HashMap<String,Object> gameLogMap = new HashMap<>();
+        HashMap<String,Object> gameLogMap = new LinkedHashMap<>();
         gameLogMap.put("gameLog",currentGameLog);
         return gameLogMap;
     }
