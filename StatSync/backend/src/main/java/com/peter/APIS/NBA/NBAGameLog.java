@@ -140,7 +140,11 @@ public class NBAGameLog {
         gamesToSort.sort((g1, g2) -> {
             OffsetDateTime date1 = (OffsetDateTime) g1.get("gameDateSort");
             OffsetDateTime date2 = (OffsetDateTime) g2.get("gameDateSort");
-            return date1.compareTo(date2);
+            int dateCompare = date1.compareTo(date2);
+            if(dateCompare != 0) return dateCompare;
+            long id1 = Long.parseLong((String) g1.get("gameId"));
+            long id2 = Long.parseLong((String) g2.get("gameId"));
+            return Long.compare(id1, id2);
         });
         
         // Add sorted games to currentGameLog
