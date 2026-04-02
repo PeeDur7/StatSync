@@ -379,9 +379,14 @@ function NBAPlayerData() {
 
             {/* Table Rows */}
             {Object.entries(nbaSeasonGameLogYear)
-              .sort(([keyA], [keyB]) => {
-                // Sort by game ID numerically
-                return Number(keyA) - Number(keyB);
+              .sort(([keyA, gameDataA], [keyB, gameDataB]) => {
+                const [monthA, dayA] = gameDataA.gameDate.split('/').map(Number);
+                const [monthB, dayB] = gameDataB.gameDate.split('/').map(Number);
+                const adjustedMonthA = monthA < 7 ? monthA + 12 : monthA;
+                const adjustedMonthB = monthB < 7 ? monthB + 12 : monthB;
+                if(adjustedMonthA !== adjustedMonthB) return adjustedMonthA - adjustedMonthB;
+                if(dayA !== dayB) return dayA - dayB;
+                return Number(keyA) - Number(keyB); // gameId tiebreaker
               })
               .map(([gameId, gameData], index) => {
                 const atVs = gameData.atVs === "@" ? "@" : "";
